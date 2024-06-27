@@ -19,7 +19,7 @@ class AdminLoginController extends Controller
         ]);
 
         if(Auth::attempt($request->only('email', 'password'))){
-             if(auth()->user()->is_admin){
+             if(auth()->user()->role == 'admin'){
                 return redirect()->route('admin.home');
              }
              Auth::logout();
