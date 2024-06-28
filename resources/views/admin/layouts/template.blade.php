@@ -118,15 +118,12 @@
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
             <li class="menu-item ">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="{{ route('admin.home') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Dashboards">Dashboard</div>
                 
               </a>
-            
-
-        
-            
+   
             <!--Shop -->
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Shop</span>
@@ -134,14 +131,14 @@
            
 
             <li class="menu-item">
-              <a href="icons-boxicons.html" class="menu-link">
+              <a href="{{ route('admin.product') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-crown"></i>
                 <div data-i18n="Boxicons">Products</div>
               </a>
             </li>
 
             <li class="menu-item">
-              <a href="cards-basic.html" class="menu-link">
+              <a href="{{ route('admin.category') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">Categories</div>
               </a>
@@ -149,8 +146,7 @@
 
             <li class="menu-item">
               <a
-                href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                target="_blank"
+                href="{{ route('admin.order') }}"
                 class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Documentation">Orders</div>
@@ -158,9 +154,9 @@
             </li>
 
             <li class="menu-item">
-              <a href="icons-boxicons.html" class="menu-link">
+              <a href="{{route('admin.customers')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-crown"></i>
-                <div data-i18n="Boxicons">Products</div>
+                <div data-i18n="Boxicons">Customers</div>
               </a>
             </li>
 
@@ -171,7 +167,7 @@
             </li>
 
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="{{ route('admin.supplier') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-store"></i>
                 <div data-i18n="Front Pages">Suppliers</div>
               </a>
@@ -179,7 +175,7 @@
 
             
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="{{ route('admin.shipper') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-store"></i>
                 <div data-i18n="Front Pages">Shippers</div>
               </a>

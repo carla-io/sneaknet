@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -10,7 +13,8 @@ class UserController extends Controller
 {
     public function index()
 {
-    return view('admin.users');
+    // dd('Customers Page');
+    return view('customers');
 }
 
 public function getUsers(Request $request)

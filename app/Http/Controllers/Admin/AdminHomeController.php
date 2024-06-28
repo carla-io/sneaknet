@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class AdminHomeController extends Controller
 {
     public function index(){
+        // dd('Admin Dashboard');
         return view('admin.home');
     }
 }
