@@ -66,5 +66,5 @@ Auth::routes();
 
 // Home route for regular users with middleware
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
-    ->name('user.home')->middleware(UserMiddleware::class);
+    ->name('home')->middleware(UserMiddleware::class);
 ?>
