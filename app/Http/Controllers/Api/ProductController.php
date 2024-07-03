@@ -74,7 +74,7 @@ class ProductController extends Controller
         $products->product_name = $request->product_name;
         $products->quantity = $request->quantity;
         $products->price = $request->price;
-        $products->description = isset($request->description);
+        $products->description = isset($request->description) ? $request->description: '';
         $products->save();
 
         return response()->json([
@@ -84,7 +84,7 @@ class ProductController extends Controller
         ], 200);
     }
 
-    //Delete Product
+    // Delete Product
     public function delete(Request $request){
         $validateProduct = Validator::make($request->all(),[
             'product_id' => 'required|exists:products,id',
@@ -97,12 +97,62 @@ class ProductController extends Controller
                 'data' => $validateProduct->errors(),
             ], 422);
         }
+        
+        // $products = Product::find($request->product_id)->delete();
 
-        $products = Product::find($request->product_id)->delete();
-
-        return response()->json([
-            'status' => true,
-            'message' => "Product Deleted Successfully",
-        ], 200);
+        try {
+            $product = Product::find($request->product_id);
+    
+            if (!$product) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Product not found",
+                ], 404);
+            }
+    
+            $product->delete();
+    
+            return response()->json([
+                'status' => true,
+                'message' => "Product Deleted Successfully",
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => "Failed to delete product",
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
+//     public function destroy($id)
+// {
+//     $product = Product::find($id);
+
+//     if (!$product) {
+//         return response()->json(['message' => 'Product not found'], 404);
+//     }
+
+//     $product->delete();
+
+//     return response()->json(['message' => 'Product deleted successfully'], 200);
+// }
+
+//     public function delete($id)
+// {
+//     $product = Product::find($id);
+
+//     if (!$product) {
+//         return response()->json([
+//             'status' => false,
+//             'message' => "Product not found",
+//         ], 404);
+//     }
+
+//     $product->delete();
+
+//     return response()->json([
+//         'status' => true,
+//         'message' => "Product Deleted Successfully",
+//     ], 200);
+// }
 }

@@ -16,4 +16,5 @@ use App\Http\Controllers\Api\ProductController;
 Route::get('products', [ProductController::class, 'index']);
 Route::post('create-product', [ProductController::class, 'create']);
 Route::post('update-product', [ProductController::class, 'update']);
-Route::post('delete-product', [ProductController::class, 'delete']);
+// Route::delete('delete-product/{id}', [ProductController::class, 'delete']);
+Route::delete('delete-product', [ProductController::class, 'delete']);

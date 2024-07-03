@@ -11,6 +11,7 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+      <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Dashboard</title>
 
@@ -66,7 +67,7 @@
               <span class="app-brand-logo demo">
                 <!-- Your SVG Logo here -->
               </span>
-              <span class="app-brand-text demo menu-text fw-bold ms-2">Admin Panel</span>
+              <span class="app-brand-text demo menu-text fw-bold ms-2"> SneakTech </span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -240,10 +241,10 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <!-- Initialize DataTable -->
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       $(document).ready(function() {
         $('#your-table-id').DataTable();
       });
-    </script>
+    </script> -->
   </body>
 </html>
