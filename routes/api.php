@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\CategoryController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -18,3 +19,7 @@ Route::post('create-product', [ProductController::class, 'create']);
 Route::post('update-product', [ProductController::class, 'update']);
 // Route::delete('delete-product/{id}', [ProductController::class, 'delete']);
 Route::delete('delete-product', [ProductController::class, 'delete']);
+
+
+Route::get('category', [CategoryController::class, 'index']);
+Route::post('create-category', [CategoryController::class, 'create']);

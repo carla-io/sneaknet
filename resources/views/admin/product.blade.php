@@ -3,13 +3,13 @@
 @section('content')
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Sneaknet /</span> Products</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">SneakTech /</span> Products</h4>
     <!-- Basic Bootstrap Table -->
     <div class="card">
     
         <div class="col-lg-4 col-md-6">
             <div class="mt-3">
-            <h2>Product List</h2>
+           
             <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Add product
         </button> -->
@@ -56,6 +56,7 @@
     <!-- Basic Bootstrap Table -->
     <div class="card">
         <div class="container">
+        <h2>Product List</h2>
             <table id="productTable" class="display" style="width:100%">
                 <thead>
                     <tr>
@@ -76,9 +77,9 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
 <script type="text/javascript">
 $(document).ready(function () {
     var table = $('#productTable').DataTable({
