@@ -100,29 +100,21 @@ class ProductController extends Controller
         
         // $products = Product::find($request->product_id)->delete();
 
-        try {
-            $product = Product::find($request->product_id);
-    
-            if (!$product) {
-                return response()->json([
-                    'status' => false,
-                    'message' => "Product not found",
-                ], 404);
-            }
-    
-            $product->delete();
-    
-            return response()->json([
-                'status' => true,
-                'message' => "Product Deleted Successfully",
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => "Failed to delete product",
-                'error' => $e->getMessage(),
-            ], 500);
-        }
+        $product = Product::find($request->product_id);
+    if (!$product) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Product not found',
+        ], 404);
+    }
+
+    $product->delete();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Product deleted successfully',
+    ], 200);
+
     }
 //     public function destroy($id)
 // {
