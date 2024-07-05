@@ -18,7 +18,7 @@ class CategoryController extends Controller
         ], 200);
     }
 
-    //Add Product
+    //Add Category
     public function create(Request $request){
 
         $validateCategory = Validator::make($request->all(),[

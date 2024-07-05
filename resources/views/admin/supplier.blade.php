@@ -20,9 +20,9 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="hidden" id="category_id">
+                                    <input type="hidden" id="supplier_id">
                                     <div class="form-group mb-3">
-                                        <label for="name" class="form-label">Category Name</label>
+                                        <label for="supplier_name" class="form-label">Category Name</label>
                                         <input type="text" class="form-control" id="name" placeholder="Example input placeholder">
                                     </div>
 
@@ -63,7 +63,51 @@
     </div>
 </div>
         
-    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+var table = $('#categoryTable').DataTable({
+        ajax: {
+            url: "/api/category",
+            dataSrc: "data"
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'pdf',
+            'excel',    
+            {
+                text: 'Add Category',
+                className: 'btn btn-primary',
+                action: function (e, dt, node, config) {
+                    $("#ajaxForm").trigger("reset");
+                    $('#category_id').val('');
+                    $('#exampleModal').modal('show');
+                    $('#modal-title').html('Add Category');
+                    $('#saveBtn').show();
+                    $('#updateBtn').hide();
+                }
+            }
+        ],
+        columns: [
+            { data: 'id' },
+            { data: 'name' },
+            { data: 'description' },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return `
+                        <button class="btn btn-primary btn-sm edit-btn" data-id="${row.id}" data-name="${row.name}" data-description="${row.description}">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}">Delete</button>
+                    `;
+                }
+            }
+        ]
+    });
+
+});
+
+</script>
 
 
 @endsection

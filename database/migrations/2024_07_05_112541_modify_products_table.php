@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             // Drop the existing columns
-            $table->dropColumn('quantity');
-            $table->dropColumn('description');
+            if (!Schema::hasColumn('products', 'category_id')) {
+                $table->unsignedBigInteger('category_id')->nullable();
+                $table->foreign('category_id')->references('id')->on('categories');
+            }
 
-            // Add new columns
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->string('image')->nullable();
+            // Remove this line if 'image' column already exists
+            if (!Schema::hasColumn('products', 'image')) {
+                $table->string('image')->nullable();
+            }
         });
     }
 
@@ -29,14 +31,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            // Reverse the changes made in the up() method
-            $table->integer('quantity');
-            $table->text('description')->nullable();
-
-            // Drop the newly added columns
+            // Reverse the changes made in the 'up' method
             $table->dropForeign(['category_id']);
             $table->dropColumn('category_id');
             $table->dropColumn('image');
         });
+
     }
 };
