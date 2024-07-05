@@ -7,11 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 
+
 class ProductController extends Controller
 {
+
     //Product Listing
     public function index(Request $request){
-        $products = Product::all();
+
+        $products = Product::with('category')->get();
         return response()->json([
             'status' => true,
             'message' => "Product Listed Successfully",
@@ -24,8 +27,9 @@ class ProductController extends Controller
 
         $validateProduct = Validator::make($request->all(),[
             'product_name' => 'required|unique:products,product_name',
-            'quantity' => 'required|numeric',
             'price' => 'required|decimal:0,2',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if($validateProduct->fails()){
@@ -36,11 +40,18 @@ class ProductController extends Controller
             ], 422);
         }
 
+        $imageName = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images'), $imageName);
+        }
+
         $inputData = array(
             'product_name' => $request->product_name,
-            'quantity' => $request->quantity,
             'price' => $request->price,
-            'description' => isset($request->description) ? $request->description : '',
+            'category_id' => $request->category_id,
+            'image' => $imageName,
         );
 
         $products = Product::create($inputData);
@@ -58,8 +69,9 @@ class ProductController extends Controller
         $validateProduct = Validator::make($request->all(),[
             'product_id' => 'required|exists:products,id',
             'product_name' => 'required',
-            'quantity' => 'required|numeric',
             'price' => 'required|decimal:0,2',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if($validateProduct->fails()){
@@ -69,19 +81,48 @@ class ProductController extends Controller
                 'data' => $validateProduct->errors(),
             ], 422);
         }
+         
+        $product = Product::find($request->product_id);
+        if (!$product) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Product not found',
+            ], 404);
+        }
 
-        $products = Product::find($request->product_id);
-        $products->product_name = $request->product_name;
-        $products->quantity = $request->quantity;
-        $products->price = $request->price;
-        $products->description = isset($request->description) ? $request->description: '';
-        $products->save();
+        // Update product details
+        $product->product_name = $request->product_name;
+        $product->price = $request->price;
+        $product->category_id = $request->category_id;
+
+        // Handle image update if provided
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images'), $imageName);
+            $product->image = $imageName; // Update image name or path
+        }
+
+        $product->save();
 
         return response()->json([
             'status' => true,
-            'message' => "Product Updated Successfully",
-            'data' => $products,
+            'message' => "Product updated successfully",
+            'data' => $product,
         ], 200);
+
+        // $products = Product::find($request->product_id);
+        // $products->product_name = $request->product_name;
+        // $products->quantity = $request->quantity;
+        // $products->price = $request->price;
+        // $products->description = isset($request->description) ? $request->description: '';
+        // $products->save();
+
+        // return response()->json([
+        //     'status' => true,
+        //     'message' => "Product Updated Successfully",
+        //     'data' => $products,
+        // ], 200);
     }
 
     // Delete Product
@@ -116,35 +157,4 @@ class ProductController extends Controller
     ], 200);
 
     }
-//     public function destroy($id)
-// {
-//     $product = Product::find($id);
-
-//     if (!$product) {
-//         return response()->json(['message' => 'Product not found'], 404);
-//     }
-
-//     $product->delete();
-
-//     return response()->json(['message' => 'Product deleted successfully'], 200);
-// }
-
-//     public function delete($id)
-// {
-//     $product = Product::find($id);
-
-//     if (!$product) {
-//         return response()->json([
-//             'status' => false,
-//             'message' => "Product not found",
-//         ], 404);
-//     }
-
-//     $product->delete();
-
-//     return response()->json([
-//         'status' => true,
-//         'message' => "Product Deleted Successfully",
-//     ], 200);
-// }
 }

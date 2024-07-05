@@ -19,10 +19,10 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="hidden" id="product_id">
+                                    <input type="hidden" id="category_id">
                                     <div class="form-group mb-3">
-                                        <label for="product_name" class="form-label">Category Name</label>
-                                        <input type="text" class="form-control" id="product_name" placeholder="Example input placeholder">
+                                        <label for="name" class="form-label">Category Name</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Example input placeholder">
                                     </div>
 
                                     <div class="form-group mb-3">
@@ -32,8 +32,8 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="saveBtn">Save Product</button>
-                                    <button type="button" class="btn btn-primary" id="updateBtn" style="display: none;">Update Product</button>
+                                    <button type="button" class="btn btn-primary" id="saveBtn">Save Category</button>
+                                    <button type="button" class="btn btn-primary" id="updateBtn" style="display: none;">Update Category</button>
                                 </div>
                             </div>
                         </div>
@@ -62,16 +62,8 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
-
 <script type="text/javascript">
+$(document).ready(function () {
 var table = $('#categoryTable').DataTable({
         ajax: {
             url: "/api/category",
@@ -86,9 +78,9 @@ var table = $('#categoryTable').DataTable({
                 className: 'btn btn-primary',
                 action: function (e, dt, node, config) {
                     $("#ajaxForm").trigger("reset");
-                    $('#product_id').val('');
+                    $('#category_id').val('');
                     $('#exampleModal').modal('show');
-                    $('#modal-title').html('Add Product');
+                    $('#modal-title').html('Add Category');
                     $('#saveBtn').show();
                     $('#updateBtn').hide();
                 }
@@ -102,13 +94,103 @@ var table = $('#categoryTable').DataTable({
                 data: null,
                 render: function (data, type, row) {
                     return `
-                        <button class="btn btn-primary btn-sm edit-btn" data-id="${row.id}" data-name="${row.product_name}" data-quantity="${row.quantity}" data-price="${row.price}" data-description="${row.description}">Edit</button>
+                        <button class="btn btn-primary btn-sm edit-btn" data-id="${row.id}" data-name="${row.name}" data-description="${row.description}">Edit</button>
                         <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}">Delete</button>
                     `;
                 }
             }
         ]
     });
+
+    // Handle the save button click
+    $("#saveBtn").on('click', function (e) {
+        e.preventDefault();
+        var formData = {
+            name: $('#name').val(),
+            description: $('#description').val()
+        };
+        $.ajax({
+            type: "POST",
+            url: "/api/create-category",
+            data: formData,
+            dataType: "json",
+            success: function (data) {
+                $('#exampleModal').modal('hide');
+                $('.modal-backdrop').remove();
+                table.ajax.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+
+      // Handle the edit button click
+      $('#categoryTable tbody').on('click', 'button.edit-btn', function () {
+        var data = table.row($(this).parents('tr')).data();
+        
+        $('#category_id').val(data.id);
+        $('#name').val(data.name);
+        $('#description').val(data.description);
+        
+        $('#exampleModal').modal('show');
+        $('#modal-title').html('Edit Category');
+        $('#saveBtn').hide();
+        $('#updateBtn').show();
+    });
+
+    // Handle the update button click
+    $("#updateBtn").on('click', function (e) {
+        e.preventDefault();
+        var id = $('#category_id').val();
+        var formData = {
+            category_id: id,
+            name: $('#name').val(),
+            description: $('#description').val()
+        };
+        $.ajax({
+            type: "POST",
+            url: "/api/update-category",
+            data: formData,
+            dataType: "json",
+            success: function (data) {
+                $('#exampleModal').modal('hide');
+                table.ajax.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+
+     // Handle the delete button click
+     $('#categoryTable tbody').on('click', 'button.delete-btn', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        if (confirm('Are you sure you want to delete this category?')) {
+            $.ajax({
+                type: "DELETE",
+                url: "/api/delete-category",
+                data: {
+                    category_id: id
+                 },
+                 headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: "json",
+                success: function (data) {
+                    table.ajax.reload();
+                    alert(data.message);
+                },
+                error: function (error) {
+                    console.log(error);
+                    alert("Failed to delete product.")
+                }
+            });
+        }
+    });
+
+});
 
 </script>
 

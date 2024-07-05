@@ -13,7 +13,7 @@ class CategoryController extends Controller
         $categories = Category::all();
         return response()->json([
             'status' => true,
-            'message' => "Category Successfully",
+            'message' => "Category Listed Successfully",
             'data' => $categories,
         ], 200);
     }
@@ -23,10 +23,13 @@ class CategoryController extends Controller
 
         $validateCategory = Validator::make($request->all(),[
             'name' => 'required|unique:categories,name',
-            // 'description' => isset($request->description) ? $request->description : '',
+            'description' => 'nullable|string',
         ]);
 
         if($validateCategory->fails()){
+
+            // Log::error('Validation errors:', $validateCategory->errors()->toArray());
+            
             return response()->json([
                 'status' => false,
                 'message' => "validation error",
@@ -37,9 +40,10 @@ class CategoryController extends Controller
         $inputData = array(
             'name' => $request->name,
             'description' => isset($request->description) ? $request->description : '',
+            // 'description' => $request->description ?? '',
         );
 
-        $categories = category::create($inputData);
+        $categories = Category::create($inputData);
 
         return response()->json([
             'status' => true,
@@ -52,8 +56,8 @@ class CategoryController extends Controller
      //Update Category
      public function update(Request $request){
         $validateCategory = Validator::make($request->all(),[
-            'category_id' => 'required|exists:products,id',
-            'category_name' => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required',
         ]);
 
         if($validateCategory->fails()){
@@ -65,7 +69,7 @@ class CategoryController extends Controller
         }
 
         $categories = Category::find($request->category_id);
-        $categories->category_name = $request->category_name;
+        $categories->name = $request->name;
         $categories->description = isset($request->description) ? $request->description: '';
         $categories->save();
 

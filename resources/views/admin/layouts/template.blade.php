@@ -54,6 +54,19 @@
         z-index: 1050;
       }
     </style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+
+
+<script src="{{ asset('js/category.js') }}"></script>
   </head>
 
   <body>
@@ -152,7 +165,7 @@
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
+              <!-- <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
                   <i class="bx bx-search fs-4 lh-0"></i>
                   <input
@@ -161,57 +174,52 @@
                     placeholder="Search..."
                     aria-label="Search..." />
                 </div>
-              </div>
+              </div> -->
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="{{asset('dashboard/assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="{{asset('dashboard/assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
+    <!-- User -->
+    <li class="nav-item navbar-dropdown dropdown-user dropdown">
+        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="avatar avatar-online">
+                <img src="{{asset('dashboard/assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+            </div>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <!-- <li> -->
+                <!-- <a class="dropdown-item" href="#"> -->
+                    <!-- <div class="d-flex"> -->
+                        <!-- <div class="flex-shrink-0 me-3"> -->
+                            <!-- <div class="avatar avatar-online">
+                                <img src="{{asset('dashboard/assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                            </div> -->
+                        <!-- </div>
+                        <div class="flex-grow-1">
                             <span class="fw-medium d-block">John Doe</span>
                             <small class="text-muted">Admin</small>
-                          </div>
                         </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                      </form>
-                    </li>
-                  </ul>
-                </li>
-                <!-- /User -->
+                    </div> -->
+                <!-- </a> -->
+            <!-- </li> -->
+            <!-- <li>
+                <div class="dropdown-divider"></div>
+            </li> -->
+            <li>
+                <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="bx bx-power-off me-2"></i>
+                    <span class="align-middle">Log Out</span>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </li>
+        </ul>
+    </li>
+    <!-- /User -->
+</ul>
+
+
+
               </ul>
             </div>
           </nav>
@@ -220,6 +228,7 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             @yield('content')
+          
           </div>
           <!-- / Content wrapper -->
         </div>

@@ -32,16 +32,18 @@ Route::prefix('admin')->name('admin.')->group(function() {
             Route::get('/dashboard', 'Index')->name('home');
         });
 
-        Route::controller(CustomerController::class)->group(function(){
+        Route::controller(UserController::class)->group(function(){
             Route::get('/customers', 'Index')->name('customers');
         });
 
         Route::controller(ProductController::class)->group(function(){
             Route::get('/product', 'Index')->name('product');
+          
         });
 
         Route::controller(CategoryController::class)->group(function(){
-            Route::get('/category', 'Index')->name('category');
+            Route::get('/category', 'index')->name('category');
+           
         });
 
         Route::controller(OrderController::class)->group(function(){

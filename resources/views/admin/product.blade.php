@@ -26,20 +26,27 @@
                                     <input type="hidden" id="product_id">
                                     <div class="form-group mb-3">
                                         <label for="product_name" class="form-label">Product Name</label>
-                                        <input type="text" class="form-control" id="product_name" placeholder="Example input placeholder">
+                                        <input type="text" class="form-control" id="product_name" placeholder="name">
                                     </div>
-                                    <div class="form-group mb-3">
-                                        <label for="quantity" class="form-label">Quantity</label>
-                                        <input type="text" class="form-control" id="quantity" placeholder="Another input placeholder">
-                                    </div>
+                                    
                                     <div class="form-group mb-3">
                                         <label for="price" class="form-label">Price</label>
-                                        <input type="text" class="form-control" id="price" placeholder="Another input placeholder">
+                                        <input type="text" class="form-control" id="price" placeholder="">
                                     </div>
+
                                     <div class="form-group mb-3">
-                                        <label for="description" class="form-label">Description</label>
-                                        <input type="text" class="form-control" id="description" placeholder="Another input placeholder">
-                                    </div>
+                                     <label for="category_id" class="form-label">Category</label>
+                                       <select class="form-control" id="category_id" name="category_id">
+                                       @foreach ($categories as $category)
+                                              <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                         @endforeach
+                                       </select>
+                                     </div>
+
+                                    <div class="form-group mb-3">
+                                          <label for="image" class="form-label">Product Image</label>
+                                        <input type="file" class="form-control" id="image" name="image">
+                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -62,9 +69,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Product Name</th>
-                        <th>Quantity</th>
                         <th>Price</th>
-                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Image</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -77,9 +84,6 @@
 
 
 
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
 <script type="text/javascript">
 $(document).ready(function () {
     var table = $('#productTable').DataTable({
@@ -90,7 +94,7 @@ $(document).ready(function () {
         dom: 'Bfrtip',
         buttons: [
             'pdf',
-            'excel',    
+            'excel',
             {
                 text: 'Add Product',
                 className: 'btn btn-primary',
@@ -107,14 +111,24 @@ $(document).ready(function () {
         columns: [
             { data: 'id' },
             { data: 'product_name' },
-            { data: 'quantity' },
             { data: 'price' },
-            { data: 'description' },
+            {
+                data: 'category',
+                render: function (data, type, row) {
+                    return data ? data.name : '';
+                }
+            },
+            {
+                data: 'image',
+                render: function (data, type, row) {
+                    return `<img src="/images/${data}" width="50" height="60">`;
+                }
+            },
             {
                 data: null,
                 render: function (data, type, row) {
                     return `
-                        <button class="btn btn-primary btn-sm edit-btn" data-id="${row.id}" data-name="${row.product_name}" data-quantity="${row.quantity}" data-price="${row.price}" data-description="${row.description}">Edit</button>
+                        <button class="btn btn-primary btn-sm edit-btn" data-id="${row.id}" data-name="${row.product_name}" data-price="${row.price}" data-category_id="${row.category_id}">Edit</button>
                         <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}">Delete</button>
                     `;
                 }
@@ -122,23 +136,26 @@ $(document).ready(function () {
         ]
     });
 
-    // Handle the save button click
+    // Handle Save Product Button Click
     $("#saveBtn").on('click', function (e) {
         e.preventDefault();
-        var formData = {
-            product_name: $('#product_name').val(),
-            quantity: $('#quantity').val(),
-            price: $('#price').val(),
-            description: $('#description').val()
-        };
+        var formData = new FormData();
+        formData.append('product_name', $('#product_name').val());
+        formData.append('price', $('#price').val());
+        formData.append('category_id', $('#category_id').val());
+        formData.append('image', $('#image')[0].files[0]);
+
         $.ajax({
             type: "POST",
             url: "/api/create-product",
             data: formData,
-            dataType: "json",
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function (data) {
                 $('#exampleModal').modal('hide');
-                $('.modal-backdrop').remove();
                 table.ajax.reload();
             },
             error: function (error) {
@@ -147,38 +164,38 @@ $(document).ready(function () {
         });
     });
 
-    // Handle the edit button click
+    // Handle Edit Product Button Click
     $('#productTable tbody').on('click', 'button.edit-btn', function () {
         var data = table.row($(this).parents('tr')).data();
-        
         $('#product_id').val(data.id);
         $('#product_name').val(data.product_name);
-        $('#quantity').val(data.quantity);
         $('#price').val(data.price);
-        $('#description').val(data.description);
-        
+        $('#category_id').val(data.category_id);
         $('#exampleModal').modal('show');
         $('#modal-title').html('Edit Product');
         $('#saveBtn').hide();
         $('#updateBtn').show();
     });
 
-    // Handle the update button click
+    // Handle Update Product Button Click
     $("#updateBtn").on('click', function (e) {
         e.preventDefault();
-        var id = $('#product_id').val();
-        var formData = {
-            product_id: id,
-            product_name: $('#product_name').val(),
-            quantity: $('#quantity').val(),
-            price: $('#price').val(),
-            description: $('#description').val()
-        };
+        var formData = new FormData();
+        formData.append('product_id', $('#product_id').val());
+        formData.append('product_name', $('#product_name').val());
+        formData.append('price', $('#price').val());
+        formData.append('category_id', $('#category_id').val());
+        formData.append('image', $('#image')[0].files[0]);
+
         $.ajax({
             type: "POST",
             url: "/api/update-product",
             data: formData,
-            dataType: "json",
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function (data) {
                 $('#exampleModal').modal('hide');
                 table.ajax.reload();
@@ -189,7 +206,7 @@ $(document).ready(function () {
         });
     });
 
-    // Handle the delete button click
+    // Handle Delete Product Button Click
     $('#productTable tbody').on('click', 'button.delete-btn', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
@@ -197,20 +214,17 @@ $(document).ready(function () {
             $.ajax({
                 type: "DELETE",
                 url: "/api/delete-product",
-                data: {
-                    product_id: id
-                 },
-                 headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                data: { product_id: id },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                dataType: "json",
                 success: function (data) {
                     table.ajax.reload();
                     alert(data.message);
                 },
                 error: function (error) {
                     console.log(error);
-                    alert("Failed to delete product.")
+                    alert("Failed to delete product.");
                 }
             });
         }
@@ -218,13 +232,5 @@ $(document).ready(function () {
 });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
 @endsection
