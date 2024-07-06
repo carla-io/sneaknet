@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\SupplierController;
+use App\Http\Controllers\Api\ShipperController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -30,3 +32,13 @@ Route::get('category', [CategoryController::class, 'index']);
 Route::post('create-category', [CategoryController::class, 'create']);
 Route::post('update-category', [CategoryController::class, 'update']);
 Route::delete('delete-category', [CategoryController::class, 'delete']);
+
+Route::get('supplier', [SupplierController::class, 'index']);
+Route::post('create-supplier', [SupplierController::class, 'create']);
+Route::post('update-supplier', [SupplierController::class, 'update']);
+Route::delete('delete-supplier', [SupplierController::class, 'delete']);
+
+Route::get('shipper', [ShipperController::class, 'index']);
+Route::post('create-shipper', [ShipperController::class, 'create']);
+Route::post('update-shipper', [ShipperController::class, 'update']);
+Route::delete('delete-shipper', [ShipperController::class, 'delete']);
