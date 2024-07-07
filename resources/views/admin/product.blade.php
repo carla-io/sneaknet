@@ -15,48 +15,50 @@
         </button> -->
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <form id="ajaxForm">
-                        <div class="modal-dialog modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="modal-title">Add Product</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <input type="hidden" id="product_id">
-                                    <div class="form-group mb-3">
-                                        <label for="product_name" class="form-label">Product Name</label>
-                                        <input type="text" class="form-control" id="product_name" placeholder="name">
-                                    </div>
-                                    
-                                    <div class="form-group mb-3">
-                                        <label for="price" class="form-label">Price</label>
-                                        <input type="text" class="form-control" id="price" placeholder="">
-                                    </div>
-
-                                    <div class="form-group mb-3">
-                                     <label for="category_id" class="form-label">Category</label>
-                                       <select class="form-control" id="category_id" name="category_id">
-                                       @foreach ($categories as $category)
-                                              <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                         @endforeach
-                                       </select>
-                                     </div>
-
-                                    <div class="form-group mb-3">
-                                          <label for="image" class="form-label">Product Image</label>
-                                        <input type="file" class="form-control" id="image" name="image">
-                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="saveBtn">Save Product</button>
-                                    <button type="button" class="btn btn-primary" id="updateBtn" style="display: none;">Update Product</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-title">Add Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="ajaxForm">
+                <div class="modal-body">
+                <input type="hidden" id="product_id">
+                    <div class="mb-3">
+                        <label for="product_name" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="product_name" name="product_name">
+                        <label id="product_name-error" class="error" for="product_name"></label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="text" class="form-control" id="price" name="price">
+                        <label id="price-error" class="error" for="price"></label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category_id" class="form-label">Category</label>
+                        <select class="form-control" id="category_id" name="category_id">
+                            <option value="">Select Category</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        <label id="category_id-error" class="error" for="category_id"></label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="image" name="image">
+                        <label id="image-error" class="error" for="image"></label>
+                    </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save Product</button>
+                    <button type="submit" class="btn btn-primary" id="updateBtn">Update Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
             </div>
         </div>
 
@@ -85,6 +87,7 @@
 
 
 <script type="text/javascript">
+    
 $(document).ready(function () {
     var table = $('#productTable').DataTable({
         ajax: {
@@ -136,9 +139,56 @@ $(document).ready(function () {
         ]
     });
 
+
+     // Initialize validation
+     $('#ajaxForm').validate({
+        rules: {
+            product_name: {
+                required: true,
+                minlength: 3
+            },
+            price: {
+                required: true,
+                number: true
+            },
+            category_id: {
+                required: true
+            },
+            // image: {
+            //     required: true,
+            //     extension: "jpg|jpeg|png|gif"
+            // }
+        },
+        messages: {
+            product_name: {
+                required: "Please enter the product name",
+                minlength: "Product name should be at least 3 characters"
+            },
+            price: {
+                required: "Please enter the price",
+                number: "Please enter a valid number"
+            },
+            category_id: {
+                required: "Please select a category"
+            },
+            image: {
+                required: "Please upload an image",
+                extension: "Only image files (jpg, jpeg, png, gif) are allowed"
+            }
+        },
+        errorPlacement: function (error, element) {
+            // Display the error message next to the input field
+            error.insertAfter(element);
+        },
+       
+     
+    });
+
+
     // Handle Save Product Button Click
     $("#saveBtn").on('click', function (e) {
         e.preventDefault();
+        if ($('#ajaxForm').valid()) {
         var formData = new FormData();
         formData.append('product_name', $('#product_name').val());
         formData.append('price', $('#price').val());
@@ -162,6 +212,8 @@ $(document).ready(function () {
                 console.log(error);
             }
         });
+
+      }
     });
 
     // Handle Edit Product Button Click
@@ -171,6 +223,7 @@ $(document).ready(function () {
         $('#product_name').val(data.product_name);
         $('#price').val(data.price);
         $('#category_id').val(data.category_id);
+       
         $('#exampleModal').modal('show');
         $('#modal-title').html('Edit Product');
         $('#saveBtn').hide();
@@ -180,6 +233,7 @@ $(document).ready(function () {
     // Handle Update Product Button Click
     $("#updateBtn").on('click', function (e) {
         e.preventDefault();
+        if ($('#ajaxForm').valid()) {
         var formData = new FormData();
         formData.append('product_id', $('#product_id').val());
         formData.append('product_name', $('#product_name').val());
@@ -204,6 +258,8 @@ $(document).ready(function () {
                 console.log(error);
             }
         });
+
+    }
     });
 
     // Handle Delete Product Button Click
@@ -231,6 +287,7 @@ $(document).ready(function () {
     });
 });
 </script>
+
 
 
 @endsection

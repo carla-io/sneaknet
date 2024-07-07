@@ -11,28 +11,32 @@
            
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <form id="ajaxForm">
-                        <div class="modal-dialog modal-dialog-scrollable">
+                    
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="modal-title">Add Shipper</h1>
+                                    <h1 class="modal-title" id="modal-title">Add Shipper</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                <form id="ajaxForm">
                                 <div class="modal-body">
                                     <input type="hidden" id="shipper_id">
                                     <div class="form-group mb-3">
                                         <label for="shipper_name" class="form-label">Shipper Name</label>
-                                        <input type="text" class="form-control" id="shipper_name" placeholder="Example input placeholder">
+                                        <input type="text" class="form-control" id="shipper_name" name="shipper_name" placeholder="name">
+                                        <label id="shipper_name-error" class="error" for="shipper_name"></label>
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label for="shipper_contact" class="form-label">Shipper Contact Number</label>
-                                        <input type="text" class="form-control" id="shipper_contact" placeholder="Another input placeholder">
+                                        <input type="text" class="form-control" id="shipper_contact" name="shipper_contact" placeholder="+63">
+                                        <label id="shipper_contact-error" class="error" for="shipper_contact"></label>
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label for="shipper_address" class="form-label">Shipper Address</label>
-                                        <input type="text" class="form-control" id="shipper_address" placeholder="Another input placeholder">
+                                        <input type="text" class="form-control" id="shipper_address" name="shipper_address"  placeholder="address">
+                                        <label id="shipper_address-error" class="error" for="shipper_address"></label>
                                     </div>
 
                                     <div class="form-group mb-3">
@@ -127,9 +131,48 @@ $(document).ready(function () {
         ]
     });
 
+     // Initialize validation
+     $('#ajaxForm').validate({
+        rules: {
+            shipper_name: {
+                required: true,
+                minlength: 3
+            },
+            shipper_contact: {
+                required: true,
+                minlength: 3,
+                number: true
+            },
+            shipper_address: {
+                required: true,
+                minlength: 5
+            },
+        },
+        messages: {
+            shipper_name: {
+                required: "Please enter the shipper name",
+                minlength: "Shipper name should be at least 3 characters"
+            },
+            shipper_contact: {
+                required: "Please enter the shipper contact number",
+                minlength: "Shipper contact number should be at least 3 characters"
+            },
+            shipper_address: {
+                required: "Please enter the shipper address",
+                minlength: "Shipper address should be at least 5 characters"
+            }
+        },
+        errorPlacement: function (error, element) {
+            // Display the error message next to the input field
+            error.insertAfter(element);
+        },
+        
+    });
+
     // Handle Save Shipper Button Click
     $("#saveBtn").on('click', function (e) {
         e.preventDefault();
+        if ($('#ajaxForm').valid()) {
         var formData = new FormData();
         formData.append('shipper_name', $('#shipper_name').val());
         formData.append('shipper_contact', $('#shipper_contact').val());
@@ -154,6 +197,7 @@ $(document).ready(function () {
                 console.log(error);
             }
         });
+       }
     });
 
      // Handle the edit button click
@@ -174,6 +218,7 @@ $(document).ready(function () {
     // Handle Update Shipper Button Click
     $("#updateBtn").on('click', function (e) {
         e.preventDefault();
+        if ($('#ajaxForm').valid()) {
         var formData = new FormData();
         formData.append('shipper_id', $('#shipper_id').val());
         formData.append('shipper_name', $('#shipper_name').val());
@@ -198,6 +243,8 @@ $(document).ready(function () {
                 console.log(error);
             }
         });
+
+      }
     });
 
      // Handle Delete Supplier Button Click

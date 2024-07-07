@@ -11,23 +11,26 @@
            
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <form id="ajaxForm">
+                    
                         <div class="modal-dialog modal-dialog-scrollable">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="modal-title">Add Category</h1>
+                                    <h1 class="modal-title" id="modal-title">Add Category</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                <form id="ajaxForm">
                                 <div class="modal-body">
                                     <input type="hidden" id="category_id">
-                                    <div class="form-group mb-3">
+                                    <div class="mb-3">
                                         <label for="name" class="form-label">Category Name</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Example input placeholder">
+                                        <input type="text" class="form-control" id="name" name="name">
+                                        <label id="name-error" class="error" for="name"></label>
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label for="description" class="form-label">Description</label>
-                                        <input type="text" class="form-control" id="description" placeholder="Another input placeholder">
+                                        <input type="text" class="form-control" id="description" name="description">
+                                        <label id="decription-error" class="error" for="description"></label>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -102,9 +105,39 @@ var table = $('#categoryTable').DataTable({
         ]
     });
 
+     // Initialize validation
+     $('#ajaxForm').validate({
+        rules: {
+            name: {
+                required: true,
+                minlength: 3
+            },
+            description: {
+                required: true,
+                minlength: 3
+            }
+        },
+        messages: {
+            name: {
+                required: "Please enter the category name",
+                minlength: "Product name should be at least 3 characters"
+            },
+            description: {
+                required: "Please enter description",
+                 minlength: "Description should be at least 5 characters"
+            }
+        },
+        errorPlacement: function (error, element) {
+            // Display the error message next to the input field
+            error.insertAfter(element);
+        },
+        
+    });
+
     // Handle the save button click
     $("#saveBtn").on('click', function (e) {
         e.preventDefault();
+        if ($('#ajaxForm').valid()) {
         var formData = {
             name: $('#name').val(),
             description: $('#description').val()
@@ -123,6 +156,8 @@ var table = $('#categoryTable').DataTable({
                 console.log(error);
             }
         });
+
+       }
     });
 
       // Handle the edit button click
@@ -142,6 +177,7 @@ var table = $('#categoryTable').DataTable({
     // Handle the update button click
     $("#updateBtn").on('click', function (e) {
         e.preventDefault();
+        if ($('#ajaxForm').valid()) {
         var id = $('#category_id').val();
         var formData = {
             category_id: id,
@@ -161,6 +197,7 @@ var table = $('#categoryTable').DataTable({
                 console.log(error);
             }
         });
+       }
     });
 
      // Handle the delete button click

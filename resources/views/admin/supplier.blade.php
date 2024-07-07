@@ -12,49 +12,56 @@
            
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <form id="ajaxForm">
-                        <div class="modal-dialog modal-dialog-scrollable">
+                   
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="modal-title">Add Supplier</h1>
+                                    <h1 class="modal-title" id="modal-title">Add Supplier</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                <form id="ajaxForm">
                                 <div class="modal-body">
                                     <input type="hidden" id="supplier_id">
-                                    <div class="form-group mb-3">
+                                    <div class="mb-3">
                                         <label for="supplier_name" class="form-label">Supplier Name</label>
-                                        <input type="text" class="form-control" id="supplier_name" placeholder="Example input placeholder">
+                                        <input type="text" class="form-control" id="supplier_name" name="supplier_name">
+                                        <label id="supplier_name-error" class="error" for="supplier_name"></label>
                                     </div>
 
-                                    <div class="form-group mb-3">
+                                    <div class="mb-3">
                                         <label for="contact_name" class="form-label">Contact Name</label>
-                                        <input type="text" class="form-control" id="contact_name" placeholder="Another input placeholder">
+                                        <input type="text" class="form-control" id="contact_name" name="contact_name">
+                                        <label id="contact_name-error" class="error" for="contact_name"></label>
                                     </div>
 
-                                    <div class="form-group mb-3">
+                                    <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="text" class="form-control" id="email" placeholder="Another input placeholder">
+                                        <input type="text" class="form-control" id="email" name="email" >
+                                        <label id="email" class="error" for="email"></label>
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label for="supplier_phone" class="form-label">Supplier phone</label>
-                                        <input type="text" class="form-control" id="supplier_phone" placeholder="Another input placeholder">
+                                        <input type="text" class="form-control" id="supplier_phone" name="supplier_phone" >
+                                        <label id="supplier_phone-error" class="error" for="supplier_phone"></label>
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label for="address" class="form-label"> Address </label>
-                                        <input type="text" class="form-control" id="address" placeholder="Another input placeholder">
+                                        <input type="text" class="form-control" id="address" name="address" >
+                                        <label id="address-error" class="error" for="address"></label>
                                     </div>
 
                                     <div class="form-group mb-3">
                                           <label for="image" class="form-label">Supplier Image</label>
                                         <input type="file" class="form-control" id="image" name="image">
+                                        
                                      </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="saveBtn">Save Category</button>
-                                    <button type="button" class="btn btn-primary" id="updateBtn" style="display: none;">Update Category</button>
+                                    <button type="button" class="btn btn-primary" id="saveBtn">Save Supplier</button>
+                                    <button type="button" class="btn btn-primary" id="updateBtn" style="display: none;">Update Supplier</button>
                                 </div>
                             </div>
                         </div>
@@ -142,9 +149,73 @@ $(document).ready(function () {
         ]
     });
 
+    
+    // Initialize validation
+    $('#ajaxForm').validate({
+        rules: {
+            supplier_name: {
+                required: true,
+                minlength: 3
+            },
+            contact_name: {
+                required: true,
+                minlength: 3
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            supplier_phone: {
+                required: true,
+                minlength: 6,
+                number: true
+            },
+            address: {
+                required: true,
+                minlength: 5
+            },
+            // image: {
+            //     required: true,
+            //     extension: "jpg|jpeg|png|gif"
+            // }
+        },
+        messages: {
+            supplier_name: {
+                required: "Please enter the supplier name",
+                minlength: "Supplier name should be at least 3 characters"
+            },
+            contact_name: {
+                required: "Please enter the contact name",
+                minlength: "Contact name should be at least 3 characters"
+            },
+            email: {
+                required: "Please enter an email address",
+                email: "Please enter a valid email address"
+            },
+            supplier_phone: {
+                required: "Please enter a phone number",
+                minlength: "Phone number should be at least 6 characters"
+            },
+            address: {
+                required: "Please enter an address",
+                minlength: "Address should be at least 5 characters"
+            },
+            image: {
+                required: "Please select an image",
+                extension: "Only image files (jpg, jpeg, png, gif) are allowed"
+            }
+        },
+        errorPlacement: function (error, element) {
+            // Display the error message next to the input field
+            error.insertAfter(element);
+        },
+        
+    });
+
     // Handle Save Supplier Button Click
     $("#saveBtn").on('click', function (e) {
         e.preventDefault();
+        if ($('#ajaxForm').valid()) {
         var formData = new FormData();
         formData.append('supplier_name', $('#supplier_name').val());
         formData.append('contact_name', $('#contact_name').val());
@@ -171,6 +242,8 @@ $(document).ready(function () {
                 console.log(error);
             }
         });
+
+       }
     });
 
     // Handle the edit button click
@@ -193,6 +266,7 @@ $(document).ready(function () {
     // Handle Update Supplier Button Click
     $("#updateBtn").on('click', function (e) {
         e.preventDefault();
+        if ($('#ajaxForm').valid()) {
         var formData = new FormData();
         formData.append('supplier_id', $('#supplier_id').val());
         formData.append('supplier_name', $('#supplier_name').val());
@@ -219,6 +293,8 @@ $(document).ready(function () {
                 console.log(error);
             }
         });
+
+        }
     });
 
     // Handle Delete Supplier Button Click
