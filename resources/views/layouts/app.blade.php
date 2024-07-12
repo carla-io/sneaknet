@@ -31,7 +31,7 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-    
+
     <style>
         .cart-count {
             position: absolute;
@@ -42,6 +42,13 @@
             border-radius: 50%;
             padding: 0 5px;
         }
+
+        .card-img-top {
+    width: 100%;
+    height: 200px; /* Adjust as needed */
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+}
+
     </style>
 </head>
 <body>

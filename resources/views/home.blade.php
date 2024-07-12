@@ -104,7 +104,7 @@
             const productCard = `
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                       <img src="/images/${product.image_url}" class="card-img-top" alt="${product.product_name}">
+                      <img src="/images/${product.image}" class="card-img-top" alt="${product.product_name}">
                         <div class="card-body">
                             <h5 class="card-title">${product.product_name}</h5>
                             <p class="card-text">${product.price}</p>
