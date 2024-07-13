@@ -7,7 +7,7 @@
     <!-- Search Bar -->
     <div class="input-group mb-3">
         <input type="text" id="searchBar" class="form-control" placeholder="Search for products...">
-        <button class="btn btn-outline-secondary" type="button" id="searchButton">Search</button>
+        <!-- <button class="btn btn-outline-secondary" type="button" id="searchButton">Search</button> -->
     </div>
 
     <!-- Categories -->

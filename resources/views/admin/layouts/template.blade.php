@@ -50,6 +50,12 @@
     <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/dashboards-analytics.js') }}"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="{{ asset('js/category.js') }}"></script>
+    <script src="{{ asset('js/product.js') }}"></script>
+    <script src="{{ asset('js/customer.js') }}"></script>
+    <script src="{{ asset('js/shipper.js') }}"></script>
+    <script src="{{ asset('js/supplier.js') }}"></script>
 </head>
 <body>
     <div class="layout-wrapper layout-content-navbar">
