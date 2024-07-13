@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
+use App\Imports\ProductsImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Searchable\Searchable;
+
 
 
 class ProductController extends Controller
@@ -111,18 +115,6 @@ class ProductController extends Controller
             'data' => $product,
         ], 200);
 
-        // $products = Product::find($request->product_id);
-        // $products->product_name = $request->product_name;
-        // $products->quantity = $request->quantity;
-        // $products->price = $request->price;
-        // $products->description = isset($request->description) ? $request->description: '';
-        // $products->save();
-
-        // return response()->json([
-        //     'status' => true,
-        //     'message' => "Product Updated Successfully",
-        //     'data' => $products,
-        // ], 200);
     }
 
     // Delete Product
@@ -139,7 +131,7 @@ class ProductController extends Controller
             ], 422);
         }
         
-        // $products = Product::find($request->product_id)->delete();
+       
 
         $product = Product::find($request->product_id);
     if (!$product) {
@@ -157,4 +149,31 @@ class ProductController extends Controller
     ], 200);
 
     }
+
+    //Excel
+    public function importProducts(Request $request)
+    {
+  
+        $request->validate([
+           'file' => 'required|file|mimes:xlsx,csv',
+        ]);
+
+        dd($request->file('file'));
+
+        Excel::import(new ProductsImport, $request->file('file'));
+
+        return response()->json(['message' => 'Products imported successfully.'],200);
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'product_name' => $this->product_name,
+            'category_id' => $this->category_id,
+            'price' => $this->price,
+        ];
+    }
+
+
 }

@@ -57,9 +57,29 @@
         fetchProducts();
 
         // Search functionality
-        $('#searchButton').on('click', function () {
-            const query = $('#searchBar').val().toLowerCase();
-            displayProducts(products.filter(product => product.product_name.toLowerCase().includes(query)));
+        $('#searchBar').on('input', function () {
+            const query = $(this).val().toLowerCase();
+            if (query.length > 2) { // Start searching only after 3 characters
+                $.ajax({
+                    url: '/api/search',
+                    method: 'GET',
+                    data: { query: query },
+                    success: function (response) {
+                        const searchResults = response.data; // Access the 'data' property
+                        if (Array.isArray(searchResults)) {
+                            displayProducts(searchResults);
+                        } else {
+                            console.error('Search results are not an array:', searchResults);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Failed to search products:', status, error);
+                    }
+                });
+            } else {
+                // Reset products if query is too short
+                displayProducts(products);
+            }
         });
 
         // Category filter functionality
@@ -100,27 +120,36 @@
 
     function displayProducts(products) {
         $('#productContainer').empty();
-        products.forEach(product => {
-            const productCard = `
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                      <img src="/images/${product.image}" class="card-img-top" alt="${product.product_name}">
-                        <div class="card-body">
-                            <h5 class="card-title">${product.product_name}</h5>
-                            <p class="card-text">${product.price}</p>
-                            <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
+        if (Array.isArray(products)) {
+            products.forEach(product => {
+                const productCard = `
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                          <img src="/images/${product.image}" class="card-img-top" alt="${product.product_name}">
+                            <div class="card-body">
+                                <h5 class="card-title">${product.product_name}</h5>
+                                <p class="card-text">${product.price}</p>
+                                <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
-            $('#productContainer').append(productCard);
-        });
+                `;
+                $('#productContainer').append(productCard);
+            });
+        } else {
+            console.error('Products is not an array:', products);
+        }
     }
 
     function addToCart(productId) {
         const product = products.find(p => p.id == productId);
-        cart.push(product);
-        $('#cartCount').text(cart.length);
+        if (product) {
+            cart.push(product);
+            $('#cartCount').text(cart.length);
+        } else {
+            console.error('Product not found:', productId);
+        }
     }
 </script>
+
 @endsection

@@ -34,11 +34,12 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
         Route::controller(UserController::class)->group(function(){
             Route::get('/customers', 'Index')->name('customers');
+            
         });
 
         Route::controller(ProductController::class)->group(function(){
             Route::get('/product', 'Index')->name('product');
-          
+            // Route::post('/product/import', 'import')->name('product.import');
         });
 
         Route::controller(CategoryController::class)->group(function(){

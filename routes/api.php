@@ -12,6 +12,9 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\ShipperController;
+use App\Imports\ProductsImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Api\SearchController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -24,8 +27,8 @@ Route::post('deactivate-users', [UserController::class, 'deactivateUser']);
 Route::get('products', [ProductController::class, 'index']);
 Route::post('create-product', [ProductController::class, 'create']);
 Route::post('update-product', [ProductController::class, 'update']);
-// Route::delete('delete-product/{id}', [ProductController::class, 'delete']);
 Route::delete('delete-product', [ProductController::class, 'delete']);
+Route::post('import-products', [ProductController::class, 'importProducts']);
 
 
 Route::get('category', [CategoryController::class, 'index']);
@@ -42,3 +45,5 @@ Route::get('shipper', [ShipperController::class, 'index']);
 Route::post('create-shipper', [ShipperController::class, 'create']);
 Route::post('update-shipper', [ShipperController::class, 'update']);
 Route::delete('delete-shipper', [ShipperController::class, 'delete']);
+
+Route::get('search', [SearchController::class, 'search']);

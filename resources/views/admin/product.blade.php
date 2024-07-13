@@ -10,9 +10,36 @@
         <div class="col-lg-4 col-md-6">
             <div class="mt-3">
            
-            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Add product
-        </button> -->
+          <!-- Import Button -->
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#importModal">
+                    Import Products
+                </button>
+
+            <!-- Import Modal -->
+            <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="importModalLabel">Import Products</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form id="importForm"  method="POST" enctype="multipart/form-data" >
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="import_file" class="form-label">Upload Excel File</label>
+                                        <input type="file" class="form-control" id="import_file" name="file" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Import</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -285,6 +312,32 @@ $(document).ready(function () {
             });
         }
     });
+
+    // Handle Import Form Submit
+    $("#importForm").on('submit', function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            type: 'POST',
+            url: "/api/import-products",
+            data: formData,
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                $('#importModal').modal('hide');
+                table.ajax.reload();
+                alert(data.message);
+            },
+            error: function (error) {
+                console.log(error);
+                alert("Failed to import products.");
+            }
+        });
+    });
+
 });
 </script>
 
