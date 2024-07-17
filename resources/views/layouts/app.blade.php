@@ -32,6 +32,9 @@
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 
+    <script src="{{ asset('js/homepage.js') }}"></script>
+    <script src="{{ asset('js/cart.js') }}"></script>
+    
     <style>
         .cart-count {
             position: absolute;
@@ -49,7 +52,11 @@
     object-fit: cover; /* Ensures the image covers the area without stretching */
 }
 
+
     </style>
+
+
+
 </head>
 <body>
     <div id="app">

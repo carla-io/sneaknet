@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\ShipperController;
 use App\Imports\ProductsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\CartController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -47,3 +48,4 @@ Route::post('update-shipper', [ShipperController::class, 'update']);
 Route::delete('delete-shipper', [ShipperController::class, 'delete']);
 
 Route::get('search', [SearchController::class, 'search']);
+Route::post('/checkout', [CartController::class, 'checkout']);
