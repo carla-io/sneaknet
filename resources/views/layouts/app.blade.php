@@ -36,24 +36,40 @@
     <script src="{{ asset('js/cart.js') }}"></script>
     
     <style>
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -10px;
-            background-color: red;
-            color: white;
-            border-radius: 50%;
-            padding: 0 5px;
-        }
+    .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 0 5px;
+    }
 
-        .card-img-top {
-    width: 100%;
-    height: 200px; /* Adjust as needed */
-    object-fit: cover; /* Ensures the image covers the area without stretching */
-}
+    #floatingCartButton {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 1000;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 50px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
 
+    #floatingCartButton:hover {
+        background-color: #0056b3;
+        transform: scale(1.1);
+    }
 
-    </style>
+    .card-img-top {
+        width: 100%;
+        height: 200px; /* Adjust as needed */
+        object-fit: cover; /* Ensures the image covers the area without stretching */
+    }
+</style>
 
 
 

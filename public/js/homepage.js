@@ -64,7 +64,7 @@ let products = [];
         });
 
         // Redirect to cart page
-        $('#cartButton').on('click', function () {
+        $('#floatingCartButton').on('click', function () {
             window.location.href = '/cart';
         });
     });
@@ -125,6 +125,8 @@ let products = [];
                 cart.push(product);
             }
             $('#cartCount').text(cart.length);
+            // Update cart count in floating button
+            $('#floatingCartButton span').text(cart.length);
             // Store cart in session storage
             sessionStorage.setItem('cart', JSON.stringify(cart));
         } else {

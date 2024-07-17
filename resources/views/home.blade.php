@@ -14,7 +14,9 @@
             </div>
         </div>
     </div>
-    <button id="cartButton" class="btn btn-primary">View Cart (<span id="cartCount">0</span>)</button>
 </div>
+<button id="floatingCartButton" class="btn btn-primary">
+    View Cart (<span id="cartCount">0</span>)
+</button>
 
 @endsection
