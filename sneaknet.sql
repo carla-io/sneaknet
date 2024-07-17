@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2024 at 06:20 PM
+-- Generation Time: Jul 17, 2024 at 04:28 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -68,8 +68,8 @@ INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at
 (2, 'sandals', 'High', '2024-07-05 10:12:18', '2024-07-07 07:36:49'),
 (3, 'slippers', 'inside out', '2024-07-05 10:12:31', '2024-07-05 10:12:31'),
 (4, 'flat shoes', 'okaay naa', '2024-07-05 10:13:23', '2024-07-07 07:34:03'),
-(6, 'sss', 'hehehehehee', '2024-07-07 06:13:00', '2024-07-07 07:33:57'),
-(7, 'jojo99', 'bobo lang mag ayos', '2024-07-07 06:13:20', '2024-07-07 07:34:11');
+(6, 'sss', 'heheheheheesad', '2024-07-07 06:13:00', '2024-07-11 20:44:45'),
+(7, 'jojo99', 'abd', '2024-07-07 06:13:20', '2024-07-11 20:44:40');
 
 -- --------------------------------------------------------
 
@@ -207,13 +207,13 @@ INSERT INTO `products` (`id`, `product_name`, `price`, `created_at`, `updated_at
 (3, 'Adidas', 20931.00, '2024-07-02 22:58:08', '2024-07-05 10:14:04', 1, '1720203244_a718c58562e23d7f48fd4ff5be82c6ee.jpg'),
 (11, 'Adidas Orig', 2900.00, '2024-07-05 06:27:52', '2024-07-05 06:27:52', 1, '1720189672_05_fw23_brand_campaign_launch_plp_originals_shoes_iwp_stan_smith_d_c6722dbf62.jpg'),
 (12, 'high heels (pink) cutie', 17890.00, '2024-07-05 09:28:55', '2024-07-05 09:29:07', 4, '1720200547_a718c58562e23d7f48fd4ff5be82c6ee.jpg'),
-(13, 'keki', 677.00, '2024-07-07 04:47:56', '2024-07-07 04:47:56', 4, '1720356476_PROGRAMFLOWCHART (1).png'),
+(13, 'keki', 677.00, '2024-07-07 04:47:56', '2024-07-12 05:09:23', 4, '1720789763_Picture2.png'),
 (14, 'sapatos', 3243.00, '2024-07-07 05:06:07', '2024-07-07 05:06:07', 2, '1720357567_a718c58562e23d7f48fd4ff5be82c6ee.jpg'),
 (15, 'asdasd', 123.00, '2024-07-07 05:37:28', '2024-07-07 05:37:28', 2, '1720359448_a718c58562e23d7f48fd4ff5be82c6ee.jpg'),
-(16, 'jojojo', 3234.00, '2024-07-07 05:37:48', '2024-07-07 05:37:48', 1, '1720359468_db2448a9-2fa9-49df-830c-77ecb1dd4284.jpg'),
 (17, 'ptynse', 2311.00, '2024-07-07 05:42:57', '2024-07-07 05:42:57', 4, '1720359777_main-qimg-121c29165c208370c8916d9ffe39285b.jpg'),
-(18, 'agaa', 1222.00, '2024-07-07 06:43:36', '2024-07-07 07:32:31', 2, '1720366351_images.jpg'),
-(19, 'opooopoo', 3444.00, '2024-07-07 06:57:02', '2024-07-07 07:02:45', 4, '1720364565_stock-photo-brown-wallpaper-texture.jpg');
+(18, 'agaa', 1222.00, '2024-07-07 06:43:36', '2024-07-11 20:43:40', 1, '1720759420_db2448a9-2fa9-49df-830c-77ecb1dd4284.jpg'),
+(19, 'opooopoo', 3444.00, '2024-07-07 06:57:02', '2024-07-07 07:02:45', 4, '1720364565_stock-photo-brown-wallpaper-texture.jpg'),
+(20, 'Crocs classic', 2475.00, '2024-07-12 02:53:29', '2024-07-12 02:53:29', 3, '1720781609_Picture1.png');
 
 -- --------------------------------------------------------
 
@@ -235,7 +235,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('hCDiG0jZynneKo1E3VgdQuGWuU9Rsgtw0gOWlFch', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVXBQZm5KaUc0VGh3eU5XVUpSeFZDNld1YWdIMVcwVm9GVWlIM0lWSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9zdXBwbGllciI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjI7fQ==', 1720368919);
+('XN0fHay9324YxWe6AwfkgO5nMIJloWxZxExYrU7n', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUlhuVmZKeUFaOG5OYzh0YTdwUFpLamNMNm5LUktFUEN2eDJEU1NUWSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyO30=', 1721226458);
 
 -- --------------------------------------------------------
 
@@ -259,7 +259,8 @@ CREATE TABLE `shipper` (
 
 INSERT INTO `shipper` (`id`, `shipper_name`, `shipper_contact`, `shipper_address`, `image`, `created_at`, `updated_at`) VALUES
 (1, 'saira', '09663728190', 'Bagumbayan', '1720284613_b66ed4cb-425d-4410-8c35-3fc05f356ea8.jpg', '2024-07-06 08:49:49', '2024-07-06 08:50:13'),
-(3, 'hannah', '0988726351', 'mariaaaaan', '1720368905_crossword-r6hMLCRC7h.png', '2024-07-07 08:13:08', '2024-07-07 08:15:05');
+(3, 'hannah', '0988726351', 'mariaaaaan', '1720368905_crossword-r6hMLCRC7h.png', '2024-07-07 08:13:08', '2024-07-07 08:15:05'),
+(4, 'who', '09736283748', 'mariaaaaan', '1720893307_Screenshot 2024-07-12 235222.png', '2024-07-13 09:55:07', '2024-07-13 09:55:07');
 
 -- --------------------------------------------------------
 
@@ -286,7 +287,8 @@ CREATE TABLE `suppliers` (
 INSERT INTO `suppliers` (`id`, `supplier_name`, `contact_name`, `email`, `supplier_phone`, `address`, `image`, `created_at`, `updated_at`) VALUES
 (1, 'Makati Shoes', 'Jose mae', 'Joseee@gmail.com', '09672509610', 'Makati, City', '1720275306_main-qimg-121c29165c208370c8916d9ffe39285b.jpg', '2024-07-06 04:55:50', '2024-07-06 06:15:06'),
 (2, 'Nike', 'Kiko', 'kiko@gmail.com', '09736263812', 'california', '1720271719_images (1).jpg', '2024-07-06 05:15:19', '2024-07-06 05:15:19'),
-(4, 'dawhooo', 'ewanqbastaname', 'g@mail.com', '0933627180', 'msdifjsoidgvtw4', '1720369048_stock-photo-brown-wallpaper-texture.jpg', '2024-07-07 08:16:18', '2024-07-07 08:17:28');
+(4, 'dawhooo', 'ewanqbastaname', 'g@mail.com', '0933627180', 'msdifjsoidgvtw4', '1720369048_stock-photo-brown-wallpaper-texture.jpg', '2024-07-07 08:16:18', '2024-07-07 08:17:28'),
+(5, 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', '1720893308_Screenshot 2024-07-12 235222.png', '2024-07-13 09:55:08', '2024-07-13 09:55:08');
 
 -- --------------------------------------------------------
 
@@ -312,8 +314,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `is_active`, `role`) VALUES
-(1, 'Test User', 'user@user.com', '2024-06-27 01:33:30', '$2y$12$LYhLL5EPIrvkGQllv8Cke.Vlx6/i3q.wgPAny/TjtjISWilfN1Zdi', 'CzDbdArf3IsGUdNKq0zJHftREFLYgvRMF3A5bT3EeclpyaY9CQfrhKoXvgSX', '2024-06-27 01:33:31', '2024-06-27 01:33:31', 1, 'user'),
-(2, 'Admin', 'admin@admin.com', '2024-06-27 01:33:32', '$2y$12$5vsXado/fezRUL5xZGoI2.OwwEbakRk7l6/MtCSf3HC4S8bcNpInW', 'xLU97cfvl7Tv324fL6A2raGHMKkxEW3aRLDRUj2C39GlH21i2O52BEI2zWdE', '2024-06-27 01:33:32', '2024-06-27 01:33:32', 1, 'admin'),
+(1, 'Test User', 'user@user.com', '2024-06-27 01:33:30', '$2y$12$LYhLL5EPIrvkGQllv8Cke.Vlx6/i3q.wgPAny/TjtjISWilfN1Zdi', 'bWvaaRjIiQu81aHGCt5U5JkQ0mE7rf8AXtUrvpe63VOueCJXyFsKTiWxtTOj', '2024-06-27 01:33:31', '2024-06-27 01:33:31', 1, 'user'),
+(2, 'Admin', 'admin@admin.com', '2024-06-27 01:33:32', '$2y$12$5vsXado/fezRUL5xZGoI2.OwwEbakRk7l6/MtCSf3HC4S8bcNpInW', 'iYwGWDyAtHdcgdypPDDkFFE7l7UB5TgX8m2SjmIHRsqnMS7gMruz4UxNrSiQ', '2024-06-27 01:33:32', '2024-06-27 01:33:32', 1, 'admin'),
 (3, 'chan', 'chan@gmail.com', NULL, '$2y$12$y.EPI.IpRyPWvqzoScsNUe1ve9kr75JI.lla.8Z1wefR.59kCvEgm', NULL, '2024-06-27 02:23:16', '2024-07-05 08:38:09', 1, 'user'),
 (4, 'Gelain', 'gelain.castronuevo@tup.edu.ph', NULL, '$2y$12$gnEgBGntD/rlJPTG/L575e6703uqMm8F/aUOb/xHg.eByU2PzUWs.', NULL, '2024-07-05 07:03:07', '2024-07-05 08:40:48', 1, 'user');
 
@@ -451,19 +453,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `shipper`
 --
 ALTER TABLE `shipper`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
