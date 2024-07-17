@@ -22,9 +22,15 @@ $(document).ready(function () {
 
 function displayCart(cart) {
     $('#cartTableBody').empty();
+    let totalQuantity = 0;
+    let totalPrice = 0;
+
     if (Array.isArray(cart) && cart.length > 0) {
         cart.forEach((item, index) => {
-            const total = item.quantity * item.price;
+            const itemTotal = item.quantity * item.price;
+            totalQuantity += item.quantity;
+            totalPrice += itemTotal;
+
             $('#cartTableBody').append(`
                 <tr>
                     <td>${item.product_name}</td>
@@ -34,13 +40,22 @@ function displayCart(cart) {
                         ${item.quantity}
                         <button class="btn btn-sm btn-secondary" onclick="changeQuantity(${index}, 1)">+</button>
                     </td>
-                    <td>${total}</td>
+                    <td>${itemTotal.toFixed(2)}</td>
                     <td>
                         <button class="btn btn-danger" onclick="removeFromCart(${index})">Remove</button>
                     </td>
                 </tr>
             `);
         });
+
+        $('#cartTableBody').append(`
+            <tr>
+                <td colspan="2"><strong>Total</strong></td>
+                <td><strong>${totalQuantity}</strong></td>
+                <td><strong>₱${totalPrice.toFixed(2)}</strong></td>
+                <td colspan="2"></td>
+            </tr>
+        `);
     } else {
         $('#cartTableBody').append('<tr><td colspan="7" class="text-center">No items in the cart.</td></tr>');
     }
