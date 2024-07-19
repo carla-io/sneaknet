@@ -66,10 +66,10 @@ $(document).ready(function () {
             category_id: {
                 required: true
             },
-            image: {
-                required: true,
-                extension: "jpg|jpeg|png|gif"
-            }
+            // image: {
+            //     required: true,
+            //     extension: "jpg|jpeg|png|gif"
+            // }
         },
         messages: {
             product_name: {

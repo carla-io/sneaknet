@@ -71,10 +71,9 @@
                         </select>
                         <label id="category_id-error" class="error" for="category_id"></label>
                     </div>
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Image</label>
-                        <input type="file" class="form-control" id="image" name="image">
-                        <label id="image-error" class="error" for="image"></label>
+                    <div class="form-group mb-3">
+                            <label for="image" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="image" name="image">
                     </div>
                 </div>
                 <div class="modal-footer">
