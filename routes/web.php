@@ -70,7 +70,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
 Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    // Other authenticated routes...
 });
 
 

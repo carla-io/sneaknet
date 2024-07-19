@@ -30,7 +30,7 @@ let products = [];
         // Search functionality
         $('#searchBar').on('input', function () {
             const query = $(this).val().toLowerCase();
-            if (query.length > 2) { // Start searching only after 3 characters
+            if (query.length > 1) { // Start searching only after 3 characters
                 $.ajax({
                     url: '/api/search',
                     method: 'GET',
