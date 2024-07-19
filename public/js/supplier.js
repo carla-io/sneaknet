@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    console.log("Document ready");
+    // Initialize DataTable
     var table = $('#supplierTable').DataTable({
         ajax: {
             url: "/api/supplier",
@@ -16,12 +16,12 @@ $(document).ready(function () {
                 text: 'Add Supplier',
                 className: 'btn btn-primary',
                 action: function (e, dt, node, config) {
-                    $("#ajaxForm").trigger("reset");
+                    $("#supplierForm").trigger("reset");
                     $('#supplier_id').val('');
-                    $('#exampleModal').modal('show');
+                    $('#supplierModal').modal('show');
                     $('#modal-title').html('Add Supplier');
-                    $('#saveBtn').show();
-                    $('#updateBtn').hide();
+                    $('#saveSupplierBtn').show();
+                    $('#updateSupplierBtn').hide();
                 }
             }
         ],
@@ -50,9 +50,8 @@ $(document).ready(function () {
         ]
     });
 
-    
     // Initialize validation
-    $('#ajaxForm').validate({
+    $('#supplierForm').validate({
         rules: {
             supplier_name: {
                 required: true,
@@ -74,11 +73,7 @@ $(document).ready(function () {
             address: {
                 required: true,
                 minlength: 5
-            },
-            // image: {
-            //     required: true,
-            //     extension: "jpg|jpeg|png|gif"
-            // }
+            }
         },
         messages: {
             supplier_name: {
@@ -107,48 +102,50 @@ $(document).ready(function () {
             }
         },
         errorPlacement: function (error, element) {
-            // Display the error message next to the input field
             error.insertAfter(element);
         },
-        
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid').removeClass('is-valid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-valid').removeClass('is-invalid');
+        }
     });
 
     // Handle Save Supplier Button Click
-    $("#saveBtn").on('click', function (e) {
+    $("#saveSupplierBtn").on('click', function (e) {
         e.preventDefault();
-        if ($('#ajaxForm').valid()) {
-        var formData = new FormData();
-        formData.append('supplier_name', $('#supplier_name').val());
-        formData.append('contact_name', $('#contact_name').val());
-        formData.append('email', $('#email').val());
-        formData.append('supplier_phone', $('#supplier_phone').val());
-        formData.append('address', $('#address').val());
-        formData.append('image', $('#image')[0].files[0]);
+        if ($('#supplierForm').valid()) {
+            var formData = new FormData();
+            formData.append('supplier_name', $('#supplier_name').val());
+            formData.append('contact_name', $('#contact_name').val());
+            formData.append('email', $('#email').val());
+            formData.append('supplier_phone', $('#supplier_phone').val());
+            formData.append('address', $('#address').val());
+            formData.append('image', $('#supplier_image')[0].files[0]);
 
-
-        $.ajax({
-            type: "POST",
-            url: "/api/create-supplier",
-            data: formData,
-            contentType: false,
-            processData: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (data) {
-                $('#exampleModal').modal('hide');
-                table.ajax.reload();
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-
-       }
+            $.ajax({
+                type: "POST",
+                url: "/api/create-supplier",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                    $('#supplierModal').modal('hide');
+                    $('#supplierTable').DataTable().ajax.reload();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
     });
 
     // Handle the edit button click
-    $('#supplierTable tbody').on('click', 'button.edit-btn', function () {
+    $('#supplierTable tbody').on('click', '.edit-btn', function () {
         var data = table.row($(this).parents('tr')).data();
         
         $('#supplier_id').val(data.id);
@@ -158,43 +155,42 @@ $(document).ready(function () {
         $('#supplier_phone').val(data.supplier_phone);
         $('#address').val(data.address);
 
-        $('#exampleModal').modal('show');
+        $('#supplierModal').modal('show');
         $('#modal-title').html('Edit Supplier');
-        $('#saveBtn').hide();
-        $('#updateBtn').show();
+        $('#saveSupplierBtn').hide();
+        $('#updateSupplierBtn').show();
     });
 
     // Handle Update Supplier Button Click
-    $("#updateBtn").on('click', function (e) {
+    $("#updateSupplierBtn").on('click', function (e) {
         e.preventDefault();
-        if ($('#ajaxForm').valid()) {
-        var formData = new FormData();
-        formData.append('supplier_id', $('#supplier_id').val());
-        formData.append('supplier_name', $('#supplier_name').val());
-        formData.append('contact_name', $('#contact_name').val());
-        formData.append('email', $('#email').val());
-        formData.append('supplier_phone', $('#supplier_phone').val());
-        formData.append('address', $('#address').val());
-        formData.append('image', $('#image')[0].files[0]);
+        if ($('#supplierForm').valid()) {
+            var formData = new FormData();
+            formData.append('supplier_id', $('#supplier_id').val());
+            formData.append('supplier_name', $('#supplier_name').val());
+            formData.append('contact_name', $('#contact_name').val());
+            formData.append('email', $('#email').val());
+            formData.append('supplier_phone', $('#supplier_phone').val());
+            formData.append('address', $('#address').val());
+            formData.append('image', $('#supplier_image')[0].files[0]);
 
-        $.ajax({
-            type: "POST",
-            url: "/api/update-supplier",
-            data: formData,
-            contentType: false,
-            processData: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (data) {
-                $('#exampleModal').modal('hide');
-                table.ajax.reload();
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-
+            $.ajax({
+                type: "POST",
+                url: "/api/update-supplier",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                    $('#supplierModal').modal('hide');
+                    table.ajax.reload();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         }
     });
 

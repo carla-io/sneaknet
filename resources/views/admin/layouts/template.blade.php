@@ -49,7 +49,7 @@
     <script src="{{ asset('dashboard/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/dashboards-analytics.js') }}"></script>
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+ 
 
     <script src="{{ asset('js/category.js') }}"></script>
     <script src="{{ asset('js/product.js') }}"></script>

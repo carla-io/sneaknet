@@ -64,6 +64,12 @@ var table = $('#categoryTable').DataTable({
             // Display the error message next to the input field
             error.insertAfter(element);
         },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid').removeClass('is-valid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-valid').removeClass('is-invalid');
+        }
         
     });
 

@@ -1,4 +1,3 @@
-localStorage.setItem('token', '1|9LLXQuKPN2KuE3OHUmYLcojy4CNLY4mauzYgXAB8b175227e');
 
 $(document).ready(function () {
     // localStorage.setItem('token', 'cart');

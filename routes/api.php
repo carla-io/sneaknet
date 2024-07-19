@@ -29,10 +29,8 @@ use App\Models\User;
 //     return response()->json(['token' => $token]);
 // });
 
-Route::middleware('auth:sanctum')->post('orders', [OrderController::class, 'store']);
-Route::middleware('auth:sanctum')->get('orders', [OrderController::class, 'index']);
 
-// Route::middleware(['auth:api'])->group(function () {
+// Route::middleware(['auth:sanctum'])->group(function () {
 //     Route::post('orders', [OrderController::class, 'store']);
 //     // Other API routes...
 // });
@@ -65,6 +63,8 @@ Route::delete('delete-shipper', [ShipperController::class, 'delete']);
 
 Route::get('search', [SearchController::class, 'search']);
 
+Route::middleware('auth:sanctum')->post('orders', [OrderController::class, 'store']);
+Route::middleware('auth:sanctum')->get('orders', [OrderController::class, 'index']);
 
 
 

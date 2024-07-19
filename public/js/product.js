@@ -14,12 +14,12 @@ $(document).ready(function () {
                 text: 'Add Product',
                 className: 'btn btn-primary',
                 action: function (e, dt, node, config) {
-                    $("#ajaxForm").trigger("reset");
+                    $("#productForm").trigger("reset");
                     $('#product_id').val('');
-                    $('#exampleModal').modal('show');
+                    $('#productModal').modal('show');
                     $('#modal-title').html('Add Product');
-                    $('#saveBtn').show();
-                    $('#updateBtn').hide();
+                    $('#saveProductBtn').show();
+                    $('#updateProductBtn').hide();
                 }
             }
         ],
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
 
      // Initialize validation
-     $('#ajaxForm').validate({
+     $('#productForm').validate({
         rules: {
             product_name: {
                 required: true,
@@ -66,10 +66,10 @@ $(document).ready(function () {
             category_id: {
                 required: true
             },
-            // image: {
-            //     required: true,
-            //     extension: "jpg|jpeg|png|gif"
-            // }
+            image: {
+                required: true,
+                extension: "jpg|jpeg|png|gif"
+            }
         },
         messages: {
             product_name: {
@@ -92,15 +92,21 @@ $(document).ready(function () {
             // Display the error message next to the input field
             error.insertAfter(element);
         },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid').removeClass('is-valid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-valid').removeClass('is-invalid');
+        }
        
      
     });
 
 
     // Handle Save Product Button Click
-    $("#saveBtn").on('click', function (e) {
+    $("#saveProductBtn").on('click', function (e) {
         e.preventDefault();
-        if ($('#ajaxForm').valid()) {
+        if ($('#productForm').valid()) {
         var formData = new FormData();
         formData.append('product_name', $('#product_name').val());
         formData.append('price', $('#price').val());
@@ -117,8 +123,8 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (data) {
-                $('#exampleModal').modal('hide');
-                table.ajax.reload();
+                $('#productModal').modal('hide');
+                $('#productTable').DataTable().ajax.reload();
             },
             error: function (error) {
                 console.log(error);
@@ -138,14 +144,14 @@ $(document).ready(function () {
        
         $('#exampleModal').modal('show');
         $('#modal-title').html('Edit Product');
-        $('#saveBtn').hide();
-        $('#updateBtn').show();
+        $('#saveProductBtn').hide();
+        $('#updateProductBtn').show();
     });
 
     // Handle Update Product Button Click
-    $("#updateBtn").on('click', function (e) {
+    $("#updateProductBtn").on('click', function (e) {
         e.preventDefault();
-        if ($('#ajaxForm').valid()) {
+        if ($('#productForm').valid()) {
         var formData = new FormData();
         formData.append('product_id', $('#product_id').val());
         formData.append('product_name', $('#product_name').val());
@@ -163,8 +169,8 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (data) {
-                $('#exampleModal').modal('hide');
-                table.ajax.reload();
+                $('#productModal').modal('hide');
+                $('#productTable').DataTable().ajax.reload();
             },
             error: function (error) {
                 console.log(error);

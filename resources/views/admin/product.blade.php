@@ -41,14 +41,14 @@
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal-title">Add Product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="ajaxForm">
+            <form id="productForm">
                 <div class="modal-body">
                 <input type="hidden" id="product_id">
                     <div class="mb-3">
@@ -79,8 +79,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="saveBtn">Save Product</button>
-                    <button type="submit" class="btn btn-primary" id="updateBtn">Update Product</button>
+                    <button type="submit" class="btn btn-primary" id="saveProductBtn">Save Product</button>
+                    <button type="submit" class="btn btn-primary" id="updateProductBtn">Update Product</button>
                 </div>
             </form>
         </div>
@@ -110,4 +110,6 @@
         </div>
     </div>
 </div>
+
+
 @endsection
