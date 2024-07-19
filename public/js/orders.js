@@ -1,0 +1,25 @@
+$(document).ready(function() {
+    $('#orderTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: '/api/orders',
+            type: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            error: function(xhr, error, thrown) {
+                console.error('AJAX Error:', error);
+                console.log(xhr.responseText);
+            }
+        },
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'username', name: 'username' }, // This is actually the `name` field
+            { data: 'product_name', name: 'product_name' },
+            { data: 'quantity', name: 'quantity' },
+            { data: 'total_price', name: 'total_price' },
+            { data: 'status', name: 'status' }
+        ]
+    });
+});

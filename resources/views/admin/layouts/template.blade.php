@@ -56,6 +56,7 @@
     <script src="{{ asset('js/customer.js') }}"></script>
     <script src="{{ asset('js/shipper.js') }}"></script>
     <script src="{{ asset('js/supplier.js') }}"></script>
+    <script src="{{ asset('js/orders.js') }}"></script>
 </head>
 <body>
     <div class="layout-wrapper layout-content-navbar">

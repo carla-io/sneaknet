@@ -1,14 +1,34 @@
+localStorage.setItem('token', '1|9LLXQuKPN2KuE3OHUmYLcojy4CNLY4mauzYgXAB8b175227e');
+
 $(document).ready(function () {
+    // localStorage.setItem('token', 'cart');
     let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
     displayCart(cart);
     updateCartCount();
 
     $('#checkoutButton').on('click', function () {
+        // Retrieve token properly
+        const token = localStorage.getItem('token');
+        if (!token) {
+           
+            console.error('Token missing or expired');
+          
+            return;
+        }
+        
+        if (cart.length === 0) {
+            alert('Your cart is empty. Add some items before checking out.');
+            return;
+        }
+
         $.ajax({
-            url: '{{ route("cart.checkout") }}',
-            method: 'POST',
+            url: "/api/orders",
+            method: "POST",
             data: JSON.stringify({ cart: cart }),
             contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
             success: function (response) {
                 alert('Checkout successful!');
                 sessionStorage.setItem('cart', JSON.stringify([]));
@@ -17,11 +37,13 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 console.error('Checkout failed:', status, error);
+                alert('Checkout failed. Please try again later.');
             }
         });
     });
 });
 
+// Function to display cart items in the table
 function displayCart(cart) {
     $('#cartTableBody').empty();
     let totalQuantity = 0;
@@ -42,7 +64,7 @@ function displayCart(cart) {
                         ${item.quantity}
                         <button class="btn btn-sm btn-secondary" onclick="changeQuantity(${index}, 1)">+</button>
                     </td>
-                    <td>${itemTotal.toFixed(2)}</td>
+                    <td>₱${itemTotal.toFixed(2)}</td>
                     <td>
                         <button class="btn btn-danger" onclick="removeFromCart(${index})">Remove</button>
                     </td>
@@ -52,23 +74,24 @@ function displayCart(cart) {
 
         $('#cartTableBody').append(`
             <tr>
-                <td colspan="2"><strong>Total</strong></td>
-                <td><strong>${totalQuantity}</strong></td>
-                <td><strong>$${totalPrice.toFixed(2)}</strong></td>
-                <td colspan="2"></td>
+                <td colspan="3" class="text-right"><strong>Total</strong></td>
+                <td><strong>₱${totalPrice.toFixed(2)}</strong></td>
+                <td></td>
             </tr>
         `);
     } else {
-        $('#cartTableBody').append('<tr><td colspan="7" class="text-center">No items in the cart.</td></tr>');
+        $('#cartTableBody').append('<tr><td colspan="5" class="text-center">No items in the cart.</td></tr>');
     }
 }
 
+// Function to update cart item count
 function updateCartCount() {
     let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
     let totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
     $('#cartCount').text(totalItems);
 }
 
+// Function to change quantity of an item in cart
 function changeQuantity(index, change) {
     let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
     if (cart[index].quantity + change > 0) {
@@ -79,6 +102,7 @@ function changeQuantity(index, change) {
     }
 }
 
+// Function to remove an item from cart
 function removeFromCart(index) {
     let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
     cart.splice(index, 1);
@@ -87,6 +111,7 @@ function removeFromCart(index) {
     updateCartCount();
 }
 
+// Function to add a product to cart
 function addToCart(productId) {
     let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
     const product = products.find(p => p.id == productId);
@@ -96,8 +121,6 @@ function addToCart(productId) {
             existingProduct.quantity += 1;
         } else {
             product.quantity = 1;
-            product.username = '{{ Auth::user()->name }}';
-            product.email = '{{ Auth::user()->email }}';
             cart.push(product);
         }
         sessionStorage.setItem('cart', JSON.stringify(cart));

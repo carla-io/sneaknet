@@ -6,7 +6,6 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
@@ -70,9 +69,7 @@
         object-fit: cover; /* Ensures the image covers the area without stretching */
     }
 </style>
-
-
-
+    
 </head>
 <body>
     <div id="app">

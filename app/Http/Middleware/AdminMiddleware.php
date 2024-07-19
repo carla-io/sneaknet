@@ -21,4 +21,13 @@ class AdminMiddleware
          abort(403, 'You do not have permission to access this page.');
         
     }
+
+    // public function handle(Request $request, Closure $next)
+    // {
+    //     if (!Auth::check() || Auth::user()->role !== 'admin') {
+    //         abort(401, 'Unauthorized'); // Return 401 Unauthorized for non-admin users
+    //     }
+
+    //     return $next($request);
+    // }
 }
