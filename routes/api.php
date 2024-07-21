@@ -67,7 +67,9 @@ Route::get('search', [SearchController::class, 'search']);
 Route::middleware('auth:sanctum')->post('orders', [OrderController::class, 'store']);
 Route::middleware('auth:sanctum')->get('orders', [OrderController::class, 'index']);
 
-Route::middleware('auth:sanctum')->get('orders', [SalesController::class, 'index']);
+Route::middleware('auth:sanctum')->get('sales', [SalesController::class, 'index']);
+
+
 
 
 

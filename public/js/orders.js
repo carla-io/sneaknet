@@ -1,4 +1,11 @@
 $(document).ready(function() {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        console.error('Token missing or expired');
+        return;
+    }
+    
     $('#orderTable').DataTable({
         processing: true,
         serverSide: true,

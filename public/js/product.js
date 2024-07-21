@@ -142,7 +142,7 @@ $(document).ready(function () {
         $('#price').val(data.price);
         $('#category_id').val(data.category_id);
        
-        $('#exampleModal').modal('show');
+        $('#productModal').modal('show');
         $('#modal-title').html('Edit Product');
         $('#saveProductBtn').hide();
         $('#updateProductBtn').show();

@@ -23,4 +23,5 @@ class SalesController extends Controller
 
         return response()->json($sales);
     }
+
 }
