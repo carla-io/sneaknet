@@ -13,7 +13,10 @@
             <canvas id="salesChart" width="400" height="200"></canvas>
         
            
+            </div>
 
+            <div>
+            <canvas id="productPieChart" width="400" height="200"></canvas>
             </div>
         </div>
      </div>
