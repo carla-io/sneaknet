@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\SalesController;
 use App\Models\User;
 
 // Route::get('/user', function (Request $request) {
@@ -65,6 +66,8 @@ Route::get('search', [SearchController::class, 'search']);
 
 Route::middleware('auth:sanctum')->post('orders', [OrderController::class, 'store']);
 Route::middleware('auth:sanctum')->get('orders', [OrderController::class, 'index']);
+
+Route::middleware('auth:sanctum')->get('orders', [SalesController::class, 'index']);
 
 
 

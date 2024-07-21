@@ -49,14 +49,17 @@
     <script src="{{ asset('dashboard/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/dashboards-analytics.js') }}"></script>
- 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+    <script src="{{ asset('js/orders.js') }}"></script>
     <script src="{{ asset('js/category.js') }}"></script>
     <script src="{{ asset('js/product.js') }}"></script>
     <script src="{{ asset('js/customer.js') }}"></script>
     <script src="{{ asset('js/shipper.js') }}"></script>
     <script src="{{ asset('js/supplier.js') }}"></script>
-    <script src="{{ asset('js/orders.js') }}"></script>
+    <script src="{{ asset('js/charts.js') }}"></script>
 </head>
 <body>
     <div class="layout-wrapper layout-content-navbar">

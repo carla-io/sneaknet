@@ -37,10 +37,10 @@
                         success: function(response) {
                             alert(response.message);
                             table.ajax.reload();
+                        },
+                        error: function (error) {
+                         console.log(error);
                         }
-                        // error: function (error) {
-                        //  console.log(error);
-                        // }
                     });
                 }
             };
@@ -57,7 +57,10 @@
                         success: function(response) {
                             alert(response.message);
                             table.ajax.reload();
-                        }
+                        },
+                        error: function (error) {
+                            console.log(error);
+                           }
                     });
                 }
             };
