@@ -27,7 +27,7 @@
     <!-- Card for Users Line Chart -->
     <div class="card mb-4" style="max-width: 600px; margin: auto;">
         <div class="card-header text-center">
-            <h5 class="card-title mb-0">Users Registered This Month</h5>
+            <h5 class="card-title mb-0">Sales Line Chart</h5>
         </div>
         <div class="card-body">
             <canvas id="salesLineChart" width="600" height="400"></canvas>
