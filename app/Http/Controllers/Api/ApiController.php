@@ -41,6 +41,7 @@ class ApiController extends Controller
                 'message' => 'User created successfully',
                 'token' => $user->createToken("API TOKEN")->plainTextToken,
             ], 201);
+            
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,

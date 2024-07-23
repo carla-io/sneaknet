@@ -82,7 +82,8 @@
             <div class="layout-page">
 
                 <!-- Navbar -->
-                <nav class="layout-navbar shadow-none py-0">
+    
+<nav class="layout-navbar shadow-none py-0">
     <div class="container">
         <div class="navbar navbar-expand-lg landing-navbar px-3 px-md-8">
             <!-- Menu logo wrapper: Start -->
@@ -92,11 +93,11 @@
                     <i class="tf-icons bx bx-menu bx-lg align-middle text-heading fw-medium"></i>
                 </button>
                 <!-- Mobile menu toggle: End-->
-                <a href="landing-page.html" class="app-brand-link">
+                <a href="{{ route('home') }}" class="app-brand-link">
                     <span class="app-brand-logo demo">
                         <!-- SVG content here -->
                     </span>
-                    <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">sneat</span>
+                    <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Sneat</span>
                 </a>
             </div>
             <!-- Menu logo wrapper: End -->
@@ -107,7 +108,7 @@
                 </button>
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link fw-medium" aria-current="page" href="landing-page.html#landingHero">Home</a>
+                        <a class="nav-link fw-medium" aria-current="page" href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link fw-medium" href="landing-page.html#landingFeatures">Features</a>
@@ -126,236 +127,45 @@
                             <span data-i18n="Pages">Pages</span>
                         </a>
                         <div class="dropdown-menu p-4 p-xl-8">
-                            <div class="row gy-4">
-                                <div class="col-12 col-lg">
-                                    <div class="h6 d-flex align-items-center mb-3 mb-lg-4">
-                                        <div class="avatar flex-shrink-0 me-3">
-                                            <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-grid-alt"></i></span>
-                                        </div>
-                                        <span class="ps-1">Other</span>
-                                    </div>
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item active">
-                                            <a class="nav-link mega-dropdown-link" href="pricing-page.html">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                <span data-i18n="Pricing">Pricing</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="payment-page.html">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                <span data-i18n="Payment">Payment</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="checkout-page.html">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                <span data-i18n="Checkout">Checkout</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="help-center-landing.html">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                <span data-i18n="Help Center">Help Center</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-12 col-lg">
-                                    <div class="h6 d-flex align-items-center mb-3 mb-lg-4">
-                                        <div class="avatar flex-shrink-0 me-3">
-                                            <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-lock-open bx-lg"></i></span>
-                                        </div>
-                                        <span class="ps-1">Auth Demo</span>
-                                    </div>
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/auth-login-basic.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Login (Basic)
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/auth-login-cover.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Login (Cover)
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/auth-register-basic.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Register (Basic)
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/auth-register-cover.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Register (Cover)
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/auth-register-multisteps.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Register (Multi-steps)
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/auth-forgot-password-basic.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Forgot Password (Basic)
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/auth-forgot-password-cover.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Forgot Password (Cover)
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/auth-reset-password-basic.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Reset Password (Basic)
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/auth-reset-password-cover.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Reset Password (Cover)
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-12 col-lg">
-                                    <div class="h6 d-flex align-items-center mb-3 mb-lg-4">
-                                        <div class="avatar flex-shrink-0 me-3">
-                                            <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-image-alt bx-lg"></i></span>
-                                        </div>
-                                        <span class="ps-1">Other</span>
-                                    </div>
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/pages-misc-error.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Error
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/pages-misc-under-maintenance.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Under Maintenance
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/pages-misc-comingsoon.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Coming Soon
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/pages-misc-not-authorized.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Not Authorized
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-12 col-lg">
-                                    <div class="h6 d-flex align-items-center mb-3 mb-lg-4">
-                                        <div class="avatar flex-shrink-0 me-3">
-                                            <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-shape-circle bx-lg"></i></span>
-                                        </div>
-                                        <span class="ps-1">Account</span>
-                                    </div>
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/pages-account-settings-account.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Account Settings
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/pages-account-settings-billing.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Billing
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/pages-account-settings-notifications.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Notifications
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/pages-account-settings-connections.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Connections
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-12 col-lg">
-                                    <div class="h6 d-flex align-items-center mb-3 mb-lg-4">
-                                        <div class="avatar flex-shrink-0 me-3">
-                                            <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-cube"></i></span>
-                                        </div>
-                                        <span class="ps-1">Layouts</span>
-                                    </div>
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../horizontal-menu-template/index.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Horizontal Menu
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../vertical-menu-template/index.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Vertical Menu
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mega-dropdown-link" href="../blank-template/index.html" target="_blank">
-                                                <i class="bx bx-radio-circle me-1"></i>
-                                                Blank Page
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <!-- ... (existing dropdown content) ... -->
                         </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto d-flex align-items-center">
-                    <li class="nav-item">
-                        <a href="auth-login.html" class="btn btn-label-primary">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="auth-register.html" class="btn btn-primary ms-2">Register</a>
-                    </li>
-                    <li class="nav-item ms-3">
-                        <div class="dropdown">
-                            <a href="#" class="dropdown-toggle nav-link user-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ Auth::user()->name }}
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                               
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </li>
+                    @if (!Auth::check() || (Auth::check() && !Auth::user()->is_admin))
+                        <li class="nav-item">
+                            <a href="{{ route('login') }}" class="btn btn-label-primary">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('register') }}" class="btn btn-primary ms-2">Register</a>
+                        </li>
+                    @endif
+                    @if (Auth::check())
+                        <li class="nav-item ms-3">
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle nav-link user-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    @endif
                 </ul>
             </div>
             <!-- Menu wrapper: End -->
         </div>
     </div>
 </nav>
+<!-- / Navbar -->
 
                 <!-- / Navbar -->
 

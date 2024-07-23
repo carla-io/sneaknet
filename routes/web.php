@@ -21,7 +21,7 @@ use App\Models\User;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::prefix('admin')->name('admin.')->group(function() {
