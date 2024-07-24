@@ -31,4 +31,13 @@ class ProductController extends Controller
 
         return response()->json(['message' => 'Products imported successfully.']);
     }
+
+    public function show($id)
+{
+    $product = Product::find($id);
+    if (!$product) {
+        return response()->json(['error' => 'Product not found'], 404);
+    }
+    return response()->json($product);
+}
 }

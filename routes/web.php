@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\ShipperController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\AdminLoginController;
-
 use App\Http\Controllers\CartController;
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\AdminMiddleware;
@@ -73,9 +72,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 });
 
+Route::middleware('auth:web')->post('/create-orders', [OrderController::class, 'store']);
+
 
 Route::get('/generate-token', function () {
-    $user = User::find(1); // Replace with the correct user ID
+    $user = User::find(2); // Replace with the correct user ID
     $token = $user->createToken('YourAppTokenName')->plainTextToken;
     return response()->json(['token' => $token]);
 });
@@ -89,4 +90,9 @@ Auth::routes();
 // Home route for regular users with middleware
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->name('home')->middleware(UserMiddleware::class);
+
+    Route::get('/test-auth', function () {
+        return Auth::check() ? Auth::user() : response()->json(['message' => 'Unauthenticated.'], 401);
+    });
 ?>
+

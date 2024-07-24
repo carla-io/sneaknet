@@ -1,5 +1,9 @@
 @extends('layouts.template')
 
+@php
+    $user = Auth::user();
+@endphp
+
 @section('content')
 <div class="container mt-5">
     <div class="card">
@@ -7,7 +11,7 @@
             <h1>Shopping Cart</h1>
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="cartTable">
                 <thead>
                     <tr>
                         <th>Product Name</th>
@@ -28,4 +32,8 @@
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/cart.js') }}"></script>
 @endsection

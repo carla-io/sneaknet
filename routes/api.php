@@ -1,8 +1,8 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization, X-Auth-Token');
-header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
+// header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization, X-Auth-Token');
+// header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +19,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\SalesController;
 use App\Models\User;
+use App\Http\Controllers\CheckoutController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -45,6 +46,7 @@ Route::post('create-product', [ProductController::class, 'create']);
 Route::post('update-product', [ProductController::class, 'update']);
 Route::delete('delete-product', [ProductController::class, 'delete']);
 Route::post('import-products', [ProductController::class, 'importProducts']);
+Route::get('products/{id}', [ProductController::class, 'show']);
 
 
 Route::get('category', [CategoryController::class, 'index']);
@@ -64,15 +66,13 @@ Route::delete('delete-shipper', [ShipperController::class, 'delete']);
 
 Route::get('search', [SearchController::class, 'search']);
 
-Route::middleware('auth:sanctum')->post('orders', [OrderController::class, 'store']);
+// Route::middleware('auth:sanctum')->post('create-orders', [OrderController::class, 'store']);
+
+Route::middleware('auth:sanctum')->post('create-orders', [OrderController::class, 'store']);
 Route::middleware('auth:sanctum')->get('orders', [OrderController::class, 'index']);
 
+Route::post('cart-add', [CartController::class, 'addToCart'])->middleware('auth:sanctum');
+Route::get('cart-items', [CartController::class, 'getCartItems'])->middleware('auth:sanctum');
+Route::post('checkout', [OrderController::class, 'checkout'])->middleware('auth:sanctum');
+
 Route::middleware('auth:sanctum')->get('sales', [SalesController::class, 'index']);
-
-
-
-
-
-
-
-

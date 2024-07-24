@@ -14,7 +14,15 @@ use Spatie\Searchable\Searchable;
 
 class ProductController extends Controller
 {
-
+    public function show($id)
+    {
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+        return response()->json($product);
+    }
+    
     //Product Listing
     public function index(Request $request){
 

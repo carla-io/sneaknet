@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <meta name="user-id" content="{{ Auth::id() }}">
+    <meta name="username" content="{{ Auth::user()->name ?? '' }}">
+
     <title>Dashboard</title>
 
     <!-- Favicon -->
@@ -65,13 +69,12 @@
         }
 
         .navbar {
-    background-color: #f8f9fa;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: auto; /* Ensure the width is appropriate */
-}
-
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: auto; /* Ensure the width is appropriate */
+        }
     </style>
 </head>
 <body>
@@ -82,91 +85,87 @@
             <div class="layout-page">
 
                 <!-- Navbar -->
-    
-<nav class="layout-navbar shadow-none py-0">
-    <div class="container">
-        <div class="navbar navbar-expand-lg landing-navbar px-3 px-md-8">
-            <!-- Menu logo wrapper: Start -->
-            <div class="navbar-brand app-brand demo d-flex py-0 me-4 me-xl-8">
-                <!-- Mobile menu toggle: Start-->
-                <button class="navbar-toggler border-0 px-0 me-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="tf-icons bx bx-menu bx-lg align-middle text-heading fw-medium"></i>
-                </button>
-                <!-- Mobile menu toggle: End-->
-                <a href="{{ route('home') }}" class="app-brand-link">
-                    <span class="app-brand-logo demo">
-                        <!-- SVG content here -->
-                    </span>
-                    <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Sneat</span>
-                </a>
-            </div>
-            <!-- Menu logo wrapper: End -->
-            <!-- Menu wrapper: Start -->
-            <div class="collapse navbar-collapse landing-nav-menu" id="navbarSupportedContent">
-                <button class="navbar-toggler border-0 text-heading position-absolute end-0 top-0 scaleX-n1-rtl p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="tf-icons bx bx-x bx-lg"></i>
-                </button>
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium" aria-current="page" href="{{ route('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium" href="landing-page.html#landingFeatures">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium" href="landing-page.html#landingTeam">Team</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium" href="landing-page.html#landingFAQ">FAQ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium" href="landing-page.html#landingContact">Contact us</a>
-                    </li>
-                    <li class="nav-item mega-dropdown active">
-                        <a href="javascript:void(0);" class="nav-link dropdown-toggle navbar-ex-14-mega-dropdown mega-dropdown fw-medium" aria-expanded="false" data-bs-toggle="mega-dropdown" data-trigger="hover">
-                            <span data-i18n="Pages">Pages</span>
-                        </a>
-                        <div class="dropdown-menu p-4 p-xl-8">
-                            <!-- ... (existing dropdown content) ... -->
-                        </div>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto d-flex align-items-center">
-                    @if (!Auth::check() || (Auth::check() && !Auth::user()->is_admin))
-                        <li class="nav-item">
-                            <a href="{{ route('login') }}" class="btn btn-label-primary">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('register') }}" class="btn btn-primary ms-2">Register</a>
-                        </li>
-                    @endif
-                    @if (Auth::check())
-                        <li class="nav-item ms-3">
-                            <div class="dropdown">
-                                <a href="#" class="dropdown-toggle nav-link user-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ Auth::user()->name }}
+                <nav class="layout-navbar shadow-none py-0">
+                    <div class="container">
+                        <div class="navbar navbar-expand-lg landing-navbar px-3 px-md-8">
+                            <!-- Menu logo wrapper: Start -->
+                            <div class="navbar-brand app-brand demo d-flex py-0 me-4 me-xl-8">
+                                <!-- Mobile menu toggle: Start-->
+                                <button class="navbar-toggler border-0 px-0 me-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <i class="tf-icons bx bx-menu bx-lg align-middle text-heading fw-medium"></i>
+                                </button>
+                                <!-- Mobile menu toggle: End-->
+                                <a href="{{ route('home') }}" class="app-brand-link">
+                                    <span class="app-brand-logo demo">
+                                        <!-- SVG content here -->
+                                    </span>
+                                    <span class="app-brand-text demo menu-text fw-bold ms-2 ps-1">Sneat</span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            Logout
+                            </div>
+                            <!-- Menu logo wrapper: End -->
+                            <!-- Menu wrapper: Start -->
+                            <div class="collapse navbar-collapse landing-nav-menu" id="navbarSupportedContent">
+                                <button class="navbar-toggler border-0 text-heading position-absolute end-0 top-0 scaleX-n1-rtl p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <i class="tf-icons bx bx-x bx-lg"></i>
+                                </button>
+                                <ul class="navbar-nav me-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-medium" aria-current="page" href="{{ route('home') }}">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-medium" href="landing-page.html#landingFeatures">Features</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-medium" href="landing-page.html#landingTeam">Team</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-medium" href="landing-page.html#landingFAQ">FAQ</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-medium" href="landing-page.html#landingContact">Contact us</a>
+                                    </li>
+                                    <li class="nav-item mega-dropdown active">
+                                        <a href="javascript:void(0);" class="nav-link dropdown-toggle navbar-ex-14-mega-dropdown mega-dropdown fw-medium" aria-expanded="false" data-bs-toggle="mega-dropdown" data-trigger="hover">
+                                            <span data-i18n="Pages">Pages</span>
                                         </a>
+                                        <div class="dropdown-menu p-4 p-xl-8">
+                                            <!-- ... (existing dropdown content) ... -->
+                                        </div>
                                     </li>
                                 </ul>
+                                <ul class="navbar-nav ms-auto d-flex align-items-center">
+                                    @if (!Auth::check())
+                                        <li class="nav-item">
+                                            <a href="{{ route('login') }}" class="btn btn-label-primary">Login</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('register') }}" class="btn btn-primary ms-2">Register</a>
+                                        </li>
+                                    @else
+                                        <li class="nav-item ms-3">
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-toggle nav-link user-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    {{ Auth::user()->name }}
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                            Logout
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </li>
+                                    @endif
+                                </ul>
                             </div>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-            <!-- Menu wrapper: End -->
-        </div>
-    </div>
-</nav>
-<!-- / Navbar -->
-
+                            <!-- Menu wrapper: End -->
+                        </div>
+                    </div>
+                </nav>
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->

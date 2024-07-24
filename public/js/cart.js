@@ -1,38 +1,38 @@
-
 $(document).ready(function () {
-    // localStorage.setItem('token', 'cart');
+    // Initialize the cart
     let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
     displayCart(cart);
     updateCartCount();
 
+    // Handle Proceed to Checkout
     $('#checkoutButton').on('click', function () {
-        // Retrieve token properly
         const token = localStorage.getItem('token');
         if (!token) {
-           
             console.error('Token missing or expired');
-          
+            alert('You need to log in to proceed with checkout.');
             return;
         }
-        
+
         if (cart.length === 0) {
             alert('Your cart is empty. Add some items before checking out.');
             return;
         }
 
+        // Send cart data to the server
         $.ajax({
-            url: "/api/orders",
+            url: "/api/checkout", // Ensure this is your correct endpoint
             method: "POST",
-            data: JSON.stringify({ cart: cart }),
+            data: JSON.stringify({ cart: cart }), // Send cart data to the server
             contentType: 'application/json',
             headers: {
-                'Authorization': 'Bearer ' + token
+                'Authorization': 'Bearer ' + token,
+                'Accept': 'application/json'
             },
             success: function (response) {
                 alert('Checkout successful!');
-                sessionStorage.setItem('cart', JSON.stringify([]));
-                displayCart([]);
-                updateCartCount();
+                sessionStorage.setItem('cart', JSON.stringify([])); // Clear the cart
+                displayCart([]); // Clear the cart display
+                updateCartCount(); // Update cart count
             },
             error: function (xhr, status, error) {
                 console.error('Checkout failed:', status, error);
@@ -111,20 +111,42 @@ function removeFromCart(index) {
 }
 
 // Function to add a product to cart
+// Function to add a product to cart
 function addToCart(productId) {
     let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-    const product = products.find(p => p.id == productId);
-    if (product) {
-        const existingProduct = cart.find(p => p.id == productId);
-        if (existingProduct) {
-            existingProduct.quantity += 1;
-        } else {
-            product.quantity = 1;
-            cart.push(product);
+
+    // Fetch the product data from the server
+    $.ajax({
+        url: `/api/products/${productId}`, // Adjusted endpoint to include productId
+        method: 'GET',
+        success: function(product) {
+            // Log the product data for debugging
+            console.log('Fetched product:', product);
+
+            // Check if the product data is valid
+            if (!product || !product.id) {
+                console.error('Invalid product data:', product);
+                alert('Failed to add product to cart.');
+                return;
+            }
+
+            // Update cart with the fetched product data
+            const existingProduct = cart.find(p => p.id === productId);
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                product.quantity = 1;
+                cart.push(product);
+            }
+
+            // Update the cart in sessionStorage
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            displayCart(cart);
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to fetch product data:', status, error);
+            alert('Failed to add product to cart. Please try again.');
         }
-        sessionStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-    } else {
-        console.error('Product not found:', productId);
-    }
+    });
 }

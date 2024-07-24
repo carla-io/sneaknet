@@ -24,6 +24,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\Cors::class,
+        
     ];
 
     /**
@@ -83,5 +84,13 @@ class Kernel extends HttpKernel
 //             ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 //     }
 // }
+
+protected $routeMiddleware = [
+    // other middlewares
+    'auth' => \App\Http\Middleware\Authenticate::class,
+    'auth:api' => \Laravel\Passport\Http\Middleware\Authenticate::class,
+];
+
+
 
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Order;
 use App\Models\Product;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
@@ -14,39 +16,25 @@ class CartController extends Controller
         $cartItems = [];
         return view('cart');
     }
-
-    public function checkout(Request $request)
+    
+    public function addToCart(Request $request)
     {
-        // Validate incoming request
-        $validator = Validator::make($request->all(), [
-            'cart' => 'required|array',
-            'cart.*.product_name' => 'required|string',
-            'cart.*.quantity' => 'required|integer|min:1',
-            'cart.*.price' => 'required|numeric|min:0',
+        $product = Product::find($request->product_id);
+        $cart = Cart::create([
+            'user_id' => Auth::id(),
+            'product_id' => $product->id,
+            'quantity' => $request->quantity,
+            'total' => $product->price * $request->quantity,
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()->first()], 400);
-        }
+        return response()->json(['success' => 'Product added to cart!']);
+    }
 
-        // Get the authenticated user
-        $user = Auth::user();
-
-        // Proceed with creating orders and order items
-        try {
-            foreach ($request->cart as $item) {
-                Order::create([
-                    'user_id' => $user->id,
-                    'product_name' => $item['product_name'],
-                    'quantity' => $item['quantity'],
-                    'total_price' => $item['quantity'] * $item['price'], // Calculate total price per item
-                    'status' => 'Pending', // Default status
-                ]);
-            }
-
-            return response()->json(['message' => 'Checkout successful!'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to checkout. ' . $e->getMessage()], 500);
-        }
+    public function getCartItems()
+    {
+        $cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
+        return response()->json($cartItems);
     }
 }
+
+
